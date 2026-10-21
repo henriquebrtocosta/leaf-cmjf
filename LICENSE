@@ -1,43 +1,21 @@
-LEAF — ALL RIGHTS RESERVED
-PROPRIETARY AND RESTRICTIVE LICENSE
+MIT License
 
-Copyright © 2026 Henrique Barreto Costa, Luiz Guilherme Caovilla, and Guilherme Marins Maciel. All rights reserved.
+Copyright (c) 2026 Henrique Barreto Costa, Luiz Guilherme Caovilla and Guilherme Marins Maciel
 
-1. NO PERMISSION GRANTED
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-No license, authorization, or other permission is granted under this document to use the LEAF project or any materials covered by it, except where expressly authorized in a separate written agreement signed by the applicable rights holder or where such permission is required by applicable law.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-2. RESTRICTED ACTIVITIES
-
-To the extent permitted by applicable law, and unless expressly authorized in writing by the applicable rights holder, no person may:
-
-- Copy or reproduce the project materials.
-- Modify, adapt, translate, or create derivative works from the project materials.
-- Distribute, publish, sublicense, sell, rent, or otherwise make the project materials available to third parties.
-- Use the project materials for commercial purposes.
-- Incorporate the project materials into another product, service, repository, or project.
-- Claim authorship or ownership of materials created by another rights holder.
-
-3. REPOSITORY ACCESS
-
-Access to the LEAF repository, whether private or otherwise, does not by itself grant permission to exercise any intellectual property rights in the project materials.
-
-4. THIRD-PARTY RIGHTS
-
-This document does not transfer, limit, or override any rights belonging to third parties. Materials subject to separate licenses remain governed by those licenses.
-
-5. NO WAIVER
-
-Failure to enforce a provision of this document does not automatically constitute a waiver of the applicable rights, to the extent permitted by law.
-
-6. NO WARRANTY
-
-To the maximum extent permitted by applicable law, the project materials are provided “as is,” without warranties of any kind.
-
-7. RESERVATION OF RIGHTS
-
-All rights not expressly granted in a valid written agreement remain reserved to their respective lawful rights holders, subject to applicable law.
-
-8. APPLICABLE LAW
-
-Applicable law, jurisdiction, and dispute-resolution provisions must be determined in a separate legally reviewed agreement.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
