@@ -1,0 +1,7 @@
+# Arquivos gerados pela compilação
+*.exe
+*.o
+build/
+
+# Configuração local que não deve ser publicada
+.env
