@@ -59,7 +59,7 @@ O site é estático e não precisa de instalação nem compilação. Abra `index
 python -m http.server 8765 --bind 127.0.0.1
 ```
 
-Acesse [o nosso website online](henriquebrtocosta.github.io/leaf-cmjf/).
+Acesse [o nosso website online](https://henriquebrtocosta.github.io/leaf-cmjf/).
 
 ## Verificar e formatar
 
