@@ -11,4 +11,4 @@ Acervo original do projeto, organizado por assunto. Os arquivos mantêm seus con
 | [Regulamentos](regulamentos/)           | Regras e regulamento da Mostratec                |
 | [Roteiros](roteiros/)                   | Roteiros das apresentações e dos vídeos          |
 
-Os logotipos estão em [assets/images/](../../assets/images/). Para entender os critérios do assistente, consulte a [formulação LEAF](../formulacao.md). Para conhecer o projeto, leia a [apresentação completa](../projeto.md).
+Os logotipos estão em [assets/images/](../../assets/images/). Para entender os critérios do assistente, consulte a [formulação LEAF](../formulacao.md). Para conhecer o projeto, leia a [README do projeto](../../README.md).
