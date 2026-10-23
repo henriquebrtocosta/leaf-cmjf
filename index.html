@@ -16,8 +16,8 @@
     <meta property="og:type" content="website" />
     <title>LEAF — Ciência que cultiva possibilidades</title>
     <link rel="icon" type="image/svg+xml" href="assets/images/leaf.svg" />
-    <link rel="stylesheet" href="assets/css/styles.css?v=organized-20261023" />
-    <script src="assets/js/main.js?v=organized-20261023" defer></script>
+    <link rel="stylesheet" href="assets/css/styles.css?v=bilingual-20261023" />
+    <script src="assets/js/main.js?v=bilingual-20261023" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -34,6 +34,16 @@
             /></svg
           ><span>LEAF<span class="brand-sub">Ciência. Tecnologia. Cultivo.</span></span></a
         >
+        <button
+          class="language-toggle"
+          id="languageToggle"
+          type="button"
+          lang="en"
+          aria-label="Mudar idioma do site para inglês"
+        >
+          English
+        </button>
+        <span id="languageStatus" class="sr-only" aria-live="polite" aria-atomic="true"></span>
         <button
           class="menu-toggle"
           id="menuToggle"
@@ -435,13 +445,13 @@
                   <label for="crop">O que você planta? *</label
                   ><select id="crop" name="crop" required>
                     <option value="">Escolha a planta</option>
-                    <option>Alface</option>
-                    <option>Couve</option>
-                    <option>Couve-flor</option>
-                    <option>Tomate</option>
-                    <option>Morango</option>
-                    <option>Melancia</option>
-                    <option>Outra planta</option>
+                    <option value="Alface">Alface</option>
+                    <option value="Couve">Couve</option>
+                    <option value="Couve-flor">Couve-flor</option>
+                    <option value="Tomate">Tomate</option>
+                    <option value="Morango">Morango</option>
+                    <option value="Melancia">Melancia</option>
+                    <option value="Outra planta">Outra planta</option>
                   </select>
                 </div>
                 <div class="field">
@@ -455,29 +465,29 @@
                     <option value="Mosca-branca">
                       Insetos brancos que voam ao mexer na planta
                     </option>
-                    <option>Fungos ou mofo</option>
-                    <option>Manchas nas folhas</option>
-                    <option>Raízes com caroços</option>
-                    <option>Amarelecimento ou murcha</option>
-                    <option>Não sei identificar</option></select
+                    <option value="Fungos ou mofo">Fungos ou mofo</option>
+                    <option value="Manchas nas folhas">Manchas nas folhas</option>
+                    <option value="Raízes com caroços">Raízes com caroços</option>
+                    <option value="Amarelecimento ou murcha">Amarelecimento ou murcha</option>
+                    <option value="Não sei identificar">Não sei identificar</option></select
                   ><small id="problemHelp">Se tiver dúvida, escolha “Não sei identificar”.</small>
                 </div>
                 <div class="field">
                   <label for="stage">Em que fase estão as plantas?</label
                   ><select id="stage" name="stage">
-                    <option>Crescendo</option>
-                    <option>Muda pequena</option>
-                    <option>Com flores</option>
-                    <option>Com frutos</option>
-                    <option>Perto de colher</option>
+                    <option value="Crescendo">Crescendo</option>
+                    <option value="Muda pequena">Muda pequena</option>
+                    <option value="Com flores">Com flores</option>
+                    <option value="Com frutos">Com frutos</option>
+                    <option value="Perto de colher">Perto de colher</option>
                   </select>
                 </div>
                 <div class="field">
                   <label for="severity">Quanto o problema se espalhou?</label
                   ><select id="severity" name="severity">
-                    <option>Poucas plantas</option>
-                    <option>Está se espalhando</option>
-                    <option>Muitas plantas</option>
+                    <option value="Poucas plantas">Poucas plantas</option>
+                    <option value="Está se espalhando">Está se espalhando</option>
+                    <option value="Muitas plantas">Muitas plantas</option>
                   </select>
                 </div>
               </div>

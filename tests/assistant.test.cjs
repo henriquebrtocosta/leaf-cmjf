@@ -9,6 +9,89 @@ const occurrence = {
   volume: 1,
 };
 
+test('starts in Portuguese and switches number formatting and dynamic text reversibly', () => {
+  assert.equal(LEAF.getLanguage(), 'pt');
+  assert.equal(LEAF.format(1000.5), '1.000,5');
+  try {
+    LEAF.setLanguage('en');
+    assert.equal(LEAF.locale(), 'en');
+    assert.equal(LEAF.translate('Ciência que\n    cultiva'), 'Science that grows');
+    assert.equal(LEAF.format(1000.5), '1,000.5');
+    assert.equal(LEAF.translate('Para couve com pulgões'), 'For collard greens with aphids');
+    assert.equal(
+      LEAF.translate('Receita proporcional ao lote de 2 L da tabela original'),
+      'Recipe scaled to the 2 L batch in the original table'
+    );
+    assert.match(
+      LEAF.translate('Escolha de 0.1 a 100 litros, em passos de 0.1 litro.'),
+      /^Choose between 0.1/
+    );
+  } finally {
+    LEAF.setLanguage('pt');
+  }
+  assert.equal(LEAF.translate('Couve'), 'Couve');
+  assert.throws(() => LEAF.setLanguage('fr'), /Unsupported/);
+  assert.equal(LEAF.getLanguage(), 'pt');
+});
+
+test('English exports translate sources and guidance while preserving notes and measurements', () => {
+  const notes = 'Alface\nCouve\nDo not change this: <script>example</script>';
+  const original = LEAF.createPlan({ ...occurrence, volume: 2, notes, location: 'Couve' });
+  try {
+    LEAF.setLanguage('en');
+    const plan = LEAF.createPlan({ ...occurrence, volume: 2, notes, location: 'Couve' });
+    assert.deepEqual(
+      plan.concentrate.ingredients.map((item) => item.amountML),
+      original.concentrate.ingredients.map((item) => item.amountML)
+    );
+    const text = LEAF.planText(plan, 'Oct 23, 2026');
+    for (const fragment of [
+      'LEAF — Your crop reference sheet',
+      'Crop: Collard greens',
+      'Prepared neem extract: 600 mL',
+      'Original LEAF recipe — Article 1',
+      'LEAF article — composition and results',
+      'DGC presentation script — concentrated product',
+      `What you noticed: ${notes}`,
+      'Region: Couve',
+    ])
+      assert.ok(text.includes(fragment), fragment);
+    for (const fragment of [
+      'Receita original',
+      'Artigo LEAF',
+      'Roteiro DGC',
+      'Cuidados',
+      'Não aumente',
+    ])
+      assert.ok(!text.includes(fragment), fragment);
+    assert.match(LEAF.translate(plan.sources[0].title + ' ↗'), /^Original LEAF recipe/);
+  } finally {
+    LEAF.setLanguage('pt');
+  }
+});
+
+test('English dilution exports keep the same arithmetic and do not create a dose', () => {
+  try {
+    LEAF.setLanguage('en');
+    const plan = LEAF.createPlan({
+      ...occurrence,
+      mode: 'dilution',
+      volume: 20,
+      dose: 2.5,
+      doseConfirmed: true,
+    });
+    const text = LEAF.planText(plan);
+    assert.equal(plan.dilution.concentrateML, 50);
+    assert.match(text, /Amount you provided: 2.5 mL/);
+    assert.match(text, /LEAF concentrate: 50 mL/);
+    assert.match(text, /Water: top up to 20 L/);
+    assert.match(text, /2.5 mL of LEAF per liter × 20 L = 50 mL of concentrate/);
+    assert.throws(() => LEAF.createPlan({ ...occurrence, mode: 'dilution', volume: 20 }));
+  } finally {
+    LEAF.setLanguage('pt');
+  }
+});
+
 test('copies the six recorded LEAF amounts, including combined garlic/onion and potassium soap', () => {
   const recipe = LEAF.calculateConcentrate(1);
   assert.deepEqual(

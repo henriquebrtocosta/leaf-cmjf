@@ -24,7 +24,15 @@ A receita é a formulação do próprio LEAF, consultada nos artigos e registros
 - Impressão, cópia e texto para download incluem medidas, contexto, cuidados e fontes. A impressão abre os detalhes de fontes temporariamente e restaura o estado anterior depois.
 - Dados ficam no navegador, sem envio ou persistência. Não há IA generativa, API, banco de dados nem dependência externa.
 
-Os dez testes de `tests/assistant.test.cjs` cobrem composição original, escala, personalização sem criação de doses, fases, intensidade, diluição aritmética, unidades e entradas inválidas.
+Os treze testes de `tests/assistant.test.cjs` cobrem composição original, escala, personalização sem criação de doses, fases, intensidade, diluição aritmética, unidades, entradas inválidas e tradução das fichas.
+
+## Idiomas
+
+O site abre em português. O botão **English** no cabeçalho traduz a página inteira, incluindo os campos, mensagens, acessibilidade, etapas da tecnologia, notícia e fichas geradas. O botão passa a **Português** para retornar. A troca preserva as respostas preenchidas e recalcula a apresentação da ficha no idioma escolhido, sem alterar as proporções ou regras do assistente.
+
+As traduções estão no dicionário `english`, no mesmo `assets/js/main.js`. As opções do formulário mantêm valores internos estáveis. Impressão, cópia e download seguem o idioma selecionado, com números e datas localizados. Os textos digitados pelo usuário são preservados. O site não chama serviços de tradução e não armazena uma preferência de idioma: uma nova abertura começa em português.
+
+Os links de apresentação apontam para a documentação correspondente em português ou inglês. Artigos e outros documentos de pesquisa externos mantêm seus idiomas originais.
 
 ## Conteúdo e notícia
 

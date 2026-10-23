@@ -6,6 +6,8 @@ Projeto de pesquisa estudantil que reúne visão computacional, automação e pe
 
 [Acessar o site](https://henriquebrtocosta.github.io/leaf-cmjf/) · [Conhecer o projeto](docs/projeto.md) · [English](docs/project.en.md)
 
+O site abre em português. Use o botão **English** no cabeçalho para mudar toda a página e o assistente para inglês; **Português** permite voltar sem perder as respostas.
+
 ## Encontre o que precisa
 
 | Conteúdo                                    | Acesso                                                |
