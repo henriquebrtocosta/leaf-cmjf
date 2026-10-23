@@ -4,54 +4,47 @@
   const escape = text => String(text ?? '').replace(/[&<>"']/g, char => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[char]));
   const form = $('#cropForm'), result = $('#result'), initialResult = result.innerHTML;
   const tabs = [...document.querySelectorAll('[data-mode]')];
-  let mode = 'reference', currentPlan = null, toastTimer;
+  let mode = 'concentrate', currentPlan = null, toastTimer;
   function toast(message) {
-    const element = $('#toast');
-    element.textContent = message;
-    element.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => element.classList.remove('show'), 4000);
+    $('#toast').textContent = message; $('#toast').classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => $('#toast').classList.remove('show'), 4500);
   }
-  function setMode(nextMode, moveFocus = false) {
-    mode = nextMode;
-    tabs.forEach(tab => {
-      const selected = tab.dataset.mode === mode;
-      tab.setAttribute('aria-selected', String(selected));
-      tab.tabIndex = selected ? 0 : -1;
-      if (moveFocus && selected) tab.focus();
-    });
-    $('#referencePanel').hidden = mode !== 'reference';
-    $('#labelPanel').hidden = mode !== 'label';
-    $('#labelFields').disabled = mode !== 'label';
-    $('#recipe').disabled = mode !== 'reference';
-    form.querySelector('button[type="submit"]').innerHTML = mode === 'label' ? 'Calcular medidas e plano <span aria-hidden="true">↗</span>' : 'Gerar receita e plano <span aria-hidden="true">↗</span>';
+  function invalidate() {
+    if (!currentPlan) return;
+    currentPlan = null;
+    result.innerHTML = '<div class="empty-result"><span class="empty-plant" aria-hidden="true">⌁</span><h3>Vamos atualizar sua ficha.</h3><p>Você mudou as respostas. Use o botão do formulário para calcular as novas medidas.</p></div>';
+  }
+  function setMode(next, focus = false) {
+    invalidate(); mode = next;
+    tabs.forEach(tab => {const selected = tab.dataset.mode === mode; tab.setAttribute('aria-selected', String(selected)); tab.tabIndex = selected ? 0 : -1; if (focus && selected) tab.focus();});
+    const dilution = mode === 'dilution';
+    $('#concentratePanel').hidden = dilution; $('#dilutionPanel').hidden = !dilution; $('#dilutionFields').disabled = !dilution;
+    $('#volumeLabel').textContent = dilution ? 'Quantos litros de mistura pronta quer no pulverizador? *' : 'Quantos litros de concentrado LEAF quer preparar? *';
+    $('#volumeHelp').textContent = dilution ? 'É o total de água e concentrado juntos. Não acrescente esse volume de água por fora.' : 'Esta quantidade é do concentrado, não do pulverizador. 1 litro = 1.000 mL.';
+    $('#volume').min = dilution ? '0.5' : '0.1'; $('#volume').step = dilution ? '0.5' : '0.1'; $('#volume').value = dilution ? '20' : '1';
+    form.querySelector('button[type="submit"]').innerHTML = dilution ? 'Calcular água e LEAF <span aria-hidden="true">↗</span>' : 'Ver minha receita LEAF <span aria-hidden="true">↗</span>';
   }
   tabs.forEach((tab, index) => {
     tab.addEventListener('click', () => setMode(tab.dataset.mode));
     tab.addEventListener('keydown', event => {
-      if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
-        event.preventDefault();
-        const target = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
-        setMode(tabs[target].dataset.mode, true);
-      }
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+      setMode(tabs[next].dataset.mode, true);
     });
   });
+  form.addEventListener('input', invalidate); form.addEventListener('change', invalidate);
   const menu = $('#menuToggle'), nav = $('#mainNav');
   function closeMenu() {menu.setAttribute('aria-expanded', 'false'); nav.classList.remove('open');}
   menu.addEventListener('click', () => {const open = menu.getAttribute('aria-expanded') !== 'true'; menu.setAttribute('aria-expanded', String(open)); nav.classList.toggle('open', open);});
   nav.addEventListener('click', event => {if (event.target.closest('a')) closeMenu();});
   document.addEventListener('keydown', event => {if (event.key === 'Escape' && nav.classList.contains('open')) {closeMenu(); menu.focus();}});
-  $('#newsToggle').addEventListener('click', () => {
-    const toggle = $('#newsToggle'), open = toggle.getAttribute('aria-expanded') !== 'true';
-    toggle.setAttribute('aria-expanded', String(open));
-    $('#newsDetail').hidden = !open;
-    toggle.querySelector('span').textContent = open ? '−' : '+';
-  });
+  $('#newsToggle').addEventListener('click', () => {const toggle = $('#newsToggle'), open = toggle.getAttribute('aria-expanded') !== 'true'; toggle.setAttribute('aria-expanded', String(open)); $('#newsDetail').hidden = !open; toggle.querySelector('span').textContent = open ? '−' : '+';});
   const architecture = [
-    {symbol: '◎', kicker: '01 / A entrada do sistema', title: 'Tudo começa pela observação.', text: 'A câmera fornece imagens das plantas. Enquadramento, iluminação e qualidade da captura influenciam as informações disponíveis para o processamento.', tag: 'Câmera → Aplicação Python'},
-    {symbol: '⌕', kicker: '02 / Interpretar características visuais', title: 'Transformar pixels em informação.', text: 'Python, OpenCV e NumPy permitem segmentar cores em HSV e analisar contornos. As regras de classificação oferecem indicações experimentais que precisam de avaliação e confirmação.', tag: 'Imagem → Máscaras de cor → Contornos'},
-    {symbol: '⌘', kicker: '03 / Software encontra hardware', title: 'Uma ponte até o mecanismo.', text: 'A aplicação envia comandos por uma conexão USB serial ao ESP32. O microcontrolador integra o processamento no computador ao controle dos componentes físicos.', tag: 'Python → USB serial → ESP32'},
-    {symbol: '⌁', kicker: '04 / Atuação experimental', title: 'Direcionar o movimento e o fluxo.', text: 'O firmware coordena motores e bombas do protótipo. Posicionamento, volume dispensado e repetibilidade devem ser calibrados e medidos em testes controlados.', tag: 'ESP32 → Motores + Bombas → Aplicação'}
+    {symbol:'◎', kicker:'1 / Observar a planta', title:'Tudo começa com uma imagem.', text:'A câmera registra a planta. Uma imagem bem iluminada e com a planta visível ajuda o programa a fazer a análise.', tag:'Câmera → Computador'},
+    {symbol:'⌕', kicker:'2 / Examinar a imagem', title:'O programa observa cores e formas.', text:'O programa busca características visuais na imagem. Uma pessoa precisa conferir a interpretação antes de decidir o cuidado com a plantação.', tag:'Imagem → Análise de cores e contornos'},
+    {symbol:'⌘', kicker:'3 / Enviar o comando', title:'O computador conversa com o aparelho.', text:'Um cabo leva os comandos do programa ao controlador do LEAF. Ele coordena as partes que movimentam o sistema e acionam as bombas.', tag:'Computador → Cabo USB → Controlador'},
+    {symbol:'⌁', kicker:'4 / Controlar o borrifador', title:'Aplicar no lugar escolhido.', text:'Motores e bombas fazem parte do sistema de aplicação direcionada. O aparelho deve ser ajustado para controlar a posição e a quantidade de líquido.', tag:'Controlador → Motores e bombas'}
   ];
   document.querySelectorAll('[data-step]').forEach(button => button.addEventListener('click', () => {
     document.querySelectorAll('[data-step]').forEach(item => {item.classList.toggle('active', item === button); item.setAttribute('aria-pressed', String(item === button));});
@@ -59,54 +52,37 @@
     $('#architectureDetail').innerHTML = `<span class="detail-symbol" aria-hidden="true">${item.symbol}</span><div><p class="overline">${item.kicker}</p><h3>${item.title}</h3><p>${item.text}</p><span class="tech-tag">${item.tag}</span></div>`;
   }));
   function render(plan) {
-    const ref = plan.reference, calc = plan.calculation;
-    const title = ref ? ref.recipe.title : calc ? 'Medidas do seu produto' : 'Vamos entender a ocorrência.';
-    let html = `<span class="result-badge${plan.noMatch ? ' warn' : ''}">${ref ? 'Receita de referência · Embrapa' : calc ? 'Cálculo da dose informada' : 'Observação e manejo'}</span><h3 class="result-title">${title}</h3><p class="result-subtitle">${ref ? escape(ref.recipe.description) : calc ? 'As quantidades abaixo reproduzem a proporção que você transcreveu da bula. O site não verifica o produto nem sua indicação.' : escape(plan.noMatch)}</p><div class="result-context"><span>${escape(plan.crop)}</span><span>${escape(plan.pest)}</span><span>${LEAF.liquid(plan.volume)} finais</span><span>${escape(plan.stage)}</span></div>`;
-    if (ref) {
-      html += `<div class="result-section"><h4>01 / Ingredientes e medidas</h4><table class="measure-table"><caption>Quantidades para ${LEAF.liquid(plan.volume)} de calda final${ref.recipe.id === 'onion' ? ' já diluída' : ''}</caption><thead><tr><th scope="col">Ingrediente</th><th scope="col">Quantidade</th></tr></thead><tbody>${ref.ingredients.map(item => `<tr><td>${escape(item.name)}${item.note ? `<small>${escape(item.note)}</small>` : ''}</td><td>${escape(item.amount)}</td></tr>`).join('')}</tbody></table><p class="result-date">${escape(ref.formula)}</p></div><div class="result-section"><h4>02 / Modo de preparo</h4><ol>${ref.steps.map(step => `<li>${escape(step)}</li>`).join('')}</ol></div><div class="result-section"><h4>03 / Antes de usar e colher</h4><p>${escape(ref.recipe.interval)}</p><p>Use proteção apropriada, evite pele e olhos, calor excessivo e deriva. Preserve água, animais e organismos benéficos. Não misture com outros produtos. Confirme tolerância da cultivar e condições de aplicação com assistência técnica.</p></div><div class="result-section"><a class="source-link" href="${LEAF.source.url}" target="_blank" rel="noopener noreferrer">Consultar a referência: ${LEAF.source.title} ↗</a><p class="result-date">Fonte consultada em ${LEAF.source.consulted}. Esta receita é uma referência externa, separada das formulações em estudo pelo LEAF.</p></div>`;
+    const concentrate = plan.concentrate, dilution = plan.dilution;
+    let html = `<span class="result-badge">${concentrate ? 'Receita original do concentrado LEAF' : 'Diluição com a medida que você informou'}</span><h3 class="result-title">${concentrate ? 'Seu concentrado LEAF' : 'Sua mistura para o pulverizador'}</h3><p class="result-subtitle">${concentrate ? 'As seis medidas abaixo seguem a tabela do projeto e foram ajustadas à quantidade escolhida.' : 'O cálculo usa a orientação que você preencheu. Ele não confirma se a dose é adequada para sua plantação.'}</p><div class="result-context"><span>${escape(plan.crop)}</span><span>${escape(plan.problem)}</span><span>${escape(plan.severity)}</span><span>${escape(plan.stage)}</span></div>`;
+    if (concentrate) {
+      html += `<div class="notice concentrate-notice"><strong>Concentrado: precisa de diluição antes do uso.</strong><p>Esta receita é da mistura-base. Não coloque o concentrado puro nas plantas. A quantidade de água para pulverizar deve seguir a orientação para o seu cultivo.</p></div><div class="result-section"><h4>1. Separe os ingredientes</h4><table class="measure-table"><caption>Receita proporcional ao lote de ${LEAF.liquid(plan.volume)} da tabela original</caption><thead><tr><th scope="col">Ingrediente</th><th scope="col">Medida</th></tr></thead><tbody>${concentrate.ingredients.map(item => `<tr><td>${escape(item.name)}<small>${escape(item.help)}</small></td><td>${escape(item.amountText)}</td></tr>`).join('')}</tbody></table><p class="result-date">1 L = 1.000 mL. Use um copo medidor ou uma seringa medidora; não estime com colheres de cozinha.</p></div><div class="result-section"><h4>2. Confira o preparo</h4><ol><li>Separe os extratos já preparados, equivalentes aos usados pelo projeto. Óleo de nim puro, alho em pó e molho de pimenta não substituem os extratos da tabela.</li><li>A descrição original orienta misturar os extratos e o óleo em um recipiente escuro e depois acrescentar o sabão potássico, misturando bem.</li><li>As medidas da tabela já somam o volume nominal do lote. Água acrescentada muda a concentração; não calcule uma quantidade extra por conta própria.</li><li>Identifique o recipiente como “LEAF — concentrado”, com a data. Siga a orientação de preparo e armazenamento recebida da equipe.</li></ol></div>`;
+    } else {
+      html += `<div class="result-section"><h4>1. Meça o concentrado</h4><div class="measure-highlight"><span>Concentrado LEAF</span><strong>${LEAF.quantity(dilution.concentrateML, 'mL')}</strong></div><p class="result-date">Medida informada por você: ${LEAF.quantity(dilution.dose, 'mL')} de LEAF por litro de mistura pronta.</p><p>${escape(dilution.formula)}</p></div><div class="result-section"><h4>2. Complete com água</h4><p>Acrescente água para chegar a <strong>${LEAF.liquid(plan.volume)} no total</strong>, seguindo a ordem de preparo da orientação recebida.</p><p>Não coloque ${LEAF.liquid(plan.volume)} de água e depois o produto por cima: o total é de água e concentrado juntos.</p></div>`;
     }
-    if (calc) {
-      html += `<div class="result-section"><h4>01 / Quantidade calculada</h4><div class="measure-highlight"><span>${escape(calc.product)}</span><strong>${escape(calc.amountText)}</strong></div><p class="result-date">Dose informada: ${LEAF.format(calc.dose)} ${escape(calc.unit)}<br>${escape(calc.formula)}</p><p>Adicione água para completar o volume final de <strong>${LEAF.liquid(calc.volume)}</strong>, seguindo a ordem de preparo e as instruções da bula. A água não deve ser somada como um volume extra de ${LEAF.liquid(calc.volume)}.</p></div><div class="result-section"><h4>02 / Consulte também na bula</h4><p>Equipamentos de proteção, modo de aplicação, frequência, número máximo de aplicações, intervalo de segurança para a colheita e reentrada. Não combine produtos nem aumente a dose para intensificar o efeito.</p></div>`;
-    }
-    html += `<div class="result-section"><h4>Roteiro de observação</h4><ul>${plan.observations.map(item => `<li>${escape(item)}</li>`).join('')}</ul>${plan.symptoms ? `<p><strong>Suas observações:</strong> ${escape(plan.symptoms)}</p>` : ''}${plan.location ? `<p><strong>Região:</strong> ${escape(plan.location)}</p>` : ''}</div><div class="notice">${plan.notices.map(item => `<p>${escape(item)}</p>`).join('')}</div>`;
-    if (ref) html += `<details class="extra-fields no-print"><summary>Pesquisar ingredientes e utensílios <span aria-hidden="true">+</span></summary><p class="result-date">Atalhos para comparar ofertas nas lojas; sem cotações ou preços inventados.</p><div class="shopping">${ref.shopping.map(item => `<a href="https://www.google.com/search?tbm=shop&amp;q=${encodeURIComponent(item)}" target="_blank" rel="noopener noreferrer">${escape(item)} ↗</a>`).join('')}</div></details>`;
-    html += `<div class="result-actions no-print"><button type="button" class="button" data-action="print">Imprimir / salvar PDF ↗</button><button type="button" class="button outline" data-action="copy">Copiar plano</button><button type="button" class="button outline" data-action="download">Baixar .txt</button></div><p class="result-date">LEAF · Gerado em ${new Date().toLocaleDateString('pt-BR')} · Cálculo local no navegador</p>`;
-    result.innerHTML = html;
-    result.focus({preventScroll: true});
-    result.scrollIntoView({behavior: 'smooth', block: 'start'});
+    html += `<div class="result-section case-guidance"><h4>Para ${escape(plan.crop.toLocaleLowerCase('pt-BR'))} com ${escape(plan.problem.toLocaleLowerCase('pt-BR'))}</h4><p>${escape(plan.context.focus)}</p><p class="priority-message">${escape(plan.priority)}</p><ul>${plan.context.observations.map(item => `<li>${escape(item)}</li>`).join('')}</ul></div><div class="result-section"><h4>Cuidados que fazem diferença</h4><ul>${plan.precautions.map(item => `<li>${escape(item)}</li>`).join('')}</ul></div>`;
+    if (plan.notes || plan.location) html += `<div class="result-section"><h4>O que você contou</h4>${plan.notes ? `<p>${escape(plan.notes)}</p>` : ''}${plan.location ? `<p>Região: ${escape(plan.location)}</p>` : ''}</div>`;
+    html += `<details class="extra-fields result-evidence"><summary>Ver os documentos da receita <span aria-hidden="true">+</span></summary><p>${escape(plan.context.evidence)}</p><div class="source-list">${plan.sources.map(source => `<a href="${source.url}" target="_blank" rel="noopener noreferrer">${escape(source.title)} ↗<small>${escape(source.section)}</small></a>`).join('')}</div></details><div class="result-actions no-print"><button type="button" class="button" data-action="print">Imprimir / salvar PDF ↗</button><button type="button" class="button outline" data-action="copy">Copiar ficha</button><button type="button" class="button outline" data-action="download">Baixar ficha</button></div><p class="result-date">LEAF · ${new Date().toLocaleDateString('pt-BR')} · Guarde esta ficha com as orientações de uso do seu cultivo.</p>`;
+    result.innerHTML = html; result.focus({preventScroll:true}); result.scrollIntoView({behavior:'smooth',block:'start'});
   }
   function generate() {
     if (!form.reportValidity()) return;
-    try {
-      currentPlan = LEAF.createPlan({mode, crop: $('#crop').value, pest: $('#pest').value, stage: $('#stage').value, volume: $('#volume').value, recipe: $('#recipe').value, product: $('#product').value, dose: $('#dose').value, unit: $('#unit').value, labelConfirmed: $('#labelConfirmed').checked, symptoms: $('#symptoms').value, location: $('#location').value});
-      render(currentPlan);
-    } catch (error) {toast(error.message);}
+    try {currentPlan = LEAF.createPlan({mode, crop:$('#crop').value, problem:$('#problem').value, stage:$('#stage').value, severity:$('#severity').value, volume:$('#volume').value, dose:$('#dose').value, doseConfirmed:$('#doseConfirmed').checked, notes:$('#notes').value, location:$('#location').value}); render(currentPlan);}
+    catch(error) {toast(error.message);}
   }
-  form.addEventListener('submit', event => {event.preventDefault(); generate();});
-  function loadExample() {
-    setMode('reference');
-    $('#crop').value = 'Couve'; $('#pest').value = 'Pulgões'; $('#stage').value = 'Crescimento vegetativo'; $('#volume').value = '1'; $('#recipe').value = 'auto';
-    generate();
-  }
+  form.addEventListener('submit', event => {event.preventDefault();generate();});
   result.addEventListener('click', async event => {
-    if (event.target.closest('#loadExample')) {loadExample(); return;}
-    const button = event.target.closest('[data-action]');
-    if (!button || !currentPlan) return;
-    if (button.dataset.action === 'print') {window.print(); return;}
-    const text = LEAF.planText(currentPlan);
-    if (button.dataset.action === 'copy') {
-      try {if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable'); await navigator.clipboard.writeText(text); toast('Plano completo copiado, incluindo medidas e fonte.');}
-      catch {toast('Cópia automática indisponível. Use “Baixar .txt” para salvar o plano completo.');}
+    if(event.target.closest('#loadExample')) {setMode('concentrate');$('#crop').value='Couve';$('#problem').value='Pulgões';$('#stage').value='Crescendo';$('#severity').value='Poucas plantas';generate();return;}
+    const button = event.target.closest('[data-action]'); if(!button || !currentPlan)return;
+    if(button.dataset.action==='print'){window.print();return;}
+    const text=LEAF.planText(currentPlan);
+    if(button.dataset.action==='copy') {
+      try {if(!navigator.clipboard?.writeText)throw new Error('Clipboard unavailable');await navigator.clipboard.writeText(text);toast('Ficha copiada com medidas, cuidados e fontes.');}
+      catch {toast('Use “Baixar ficha” para salvar o texto completo.');}
     }
-    if (button.dataset.action === 'download') {
-      const url = URL.createObjectURL(new Blob([text], {type: 'text/plain;charset=utf-8'}));
-      const link = document.createElement('a'); link.href = url; link.download = 'plano-leaf.txt';
-      document.body.appendChild(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000);
-      toast('Plano preparado para download.');
-    }
+    if(button.dataset.action==='download') {const url=URL.createObjectURL(new Blob(['\ufeff'+text],{type:'text/plain;charset=utf-8'}));const link=document.createElement('a');link.href=url;link.download='minha-ficha-leaf.txt';document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);toast('Sua ficha está pronta para baixar.');}
   });
-  form.addEventListener('reset', () => {
-    currentPlan = null; setMode('reference'); result.innerHTML = initialResult;
-    toast('Formulário e resultado limpos.');
-  });
+  form.addEventListener('reset',()=>{currentPlan=null;setMode('concentrate');result.innerHTML=initialResult;toast('Pronto. Você pode começar uma nova ficha.');});
+  let printDetails = [];
+  window.addEventListener('beforeprint', () => {printDetails = [...result.querySelectorAll('details:not([open])')]; printDetails.forEach(detail => {detail.open = true;});});
+  window.addEventListener('afterprint', () => {printDetails.forEach(detail => {detail.open = false;}); printDetails = [];});
 })();

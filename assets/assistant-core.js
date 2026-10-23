@@ -1,129 +1,106 @@
-/* LEAF: deterministic reference matching and arithmetic. No network or AI model. */
+/* LEAF: project composition, measured volumes and plain-language context. */
 (function (root, factory) {
   const api = factory();
   if (typeof module === 'object' && module.exports) module.exports = api;
   else root.LEAF = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const source = Object.freeze({
-    title: 'Embrapa Hortaliças · Circular Técnica 47 (2007), p. 14',
-    url: 'https://www.infoteca.cnptia.embrapa.br/bitstream/doc/781607/1/ct47.pdf#page=14',
-    consulted: '23/10/2026'
+  const fileLink = path => 'https://github.com/henriquebrtocosta/leaf-cmjf/blob/main/' + path.split('/').map(encodeURIComponent).join('/');
+  const sources = Object.freeze({
+    recipe: {title: 'Receita original do LEAF — Artigo 1, Feira 2025', section: 'Tabela “Preparação do agrotóxico (1L)”', url: fileLink('Files/Artigos/Artigo 1 - Feira 2025.docx')},
+    article: {title: 'Artigo LEAF — composição e resultados', section: 'Materiais e métodos; resultados', url: fileLink('Files/Artigos/Artigo LEAF.docx')},
+    diary: {title: 'Diário dos experimentos do LEAF', section: 'Registros de setembro de 2025', url: fileLink('Files/Artigos/Anotações dos Experimentos para o Diário de Bordo.pdf')},
+    script: {title: 'Roteiro DGC — produto concentrado', section: 'Descrição do concentrado e dos ensaios', url: fileLink('Files/Roteiros de Apresentação/Roteiro DGC v1.docx')}
   });
-  const crops = Object.freeze(['Alface', 'Couve', 'Couve-flor', 'Tomate', 'Morango', 'Melancia']);
-  const recipes = Object.freeze([
-    Object.freeze({id: 'soap', title: 'Calda de sabão neutro', targets: Object.freeze(['Pulgões', 'Cochonilhas', 'Tripes', 'Lagartas']), description: 'Referência para hortaliças; a tolerância da sua cultivar e a identificação do alvo precisam ser confirmadas.', preparation: 'Dissolva o sabão na porção de água quente, deixe esfriar e acrescente água fria até o volume final. Não substitua por detergente, sabão em pó ou produto com aditivos.', interval: 'A publicação orienta cerca de duas semanas entre o uso de preparados com sabão e a colheita. Isso não estabelece carência específica para cada cultura; confirme com assistência técnica.'}),
-    Object.freeze({id: 'onion', title: 'Calda de cebola', targets: Object.freeze(['Pulgões', 'Lagartas', 'Vaquinhas']), description: 'Descrita na fonte como repelente para esses insetos em hortaliças; não equivale à comprovação de controle da infestação.', preparation: 'Faça um extrato com 100 g de cebola picada por litro de água. Repouse por 10 dias e coe. Na diluição final, use uma parte do extrato coado para três partes de água.', interval: 'A fonte não especifica carência para esta calda. Confirme o intervalo e a adequação ao cultivo antes de aplicar, especialmente perto da colheita.'})
-  ]);
-  const number = value => {
+  // Amounts refer to prepared extracts, never interchangeable raw oils or powders.
+  const ingredients = Object.freeze([
+    {id: 'neem', name: 'Extrato de nim (neem) já preparado', perLiter: 300, help: 'Não troque por óleo de nim puro.'},
+    {id: 'propolis', name: 'Extrato de própolis', perLiter: 180, help: 'Use a mesma apresentação adotada pelo projeto.'},
+    {id: 'clove', name: 'Óleo essencial de cravo-da-índia', perLiter: 30, help: 'Meça em mL com recipiente graduado ou seringa medidora.'},
+    {id: 'garlicOnion', name: 'Extrato de alho e cebola, juntos', perLiter: 300, help: 'É a medida dos dois juntos, não de cada um separado.'},
+    {id: 'pepper', name: 'Extrato de pimenta-malagueta', perLiter: 120, help: 'Use o extrato preparado, sem trocar por molho de pimenta.'},
+    {id: 'soap', name: 'Sabão potássico líquido', perLiter: 70, help: 'É diferente de detergente de cozinha e sabão em pó.'}
+  ].map(Object.freeze));
+  const crops = Object.freeze(['Alface', 'Couve', 'Couve-flor', 'Tomate', 'Morango', 'Melancia', 'Outra planta']);
+  const problems = Object.freeze(['Pulgões', 'Cochonilhas', 'Lagartas', 'Ácaros', 'Mosca-branca', 'Fungos ou mofo', 'Manchas nas folhas', 'Raízes com caroços', 'Amarelecimento ou murcha', 'Não sei identificar']);
+  const stages = Object.freeze(['Muda pequena', 'Crescendo', 'Com flores', 'Com frutos', 'Perto de colher']);
+  const severities = Object.freeze(['Poucas plantas', 'Está se espalhando', 'Muitas plantas']);
+  const clean = (value, limit = 1500) => String(value ?? '').trim().slice(0, limit);
+  function number(value) {
     if (typeof value === 'number') return value;
     if (typeof value !== 'string' || !value.trim()) return NaN;
     return Number(value.trim().replace(',', '.'));
-  };
+  }
   const format = value => new Intl.NumberFormat('pt-BR', {maximumFractionDigits: 3}).format(value);
   const quantity = (value, unit) => `${format(value)} ${unit}`;
   const liquid = liters => liters < 1 ? quantity(liters * 1000, 'mL') : quantity(liters, 'L');
-  const clean = (value, limit = 1500) => String(value || '').trim().slice(0, limit);
-  function validateVolume(value) {
-    const volume = number(value);
-    if (!Number.isFinite(volume) || volume < 0.5 || volume > 100 || Math.abs(volume * 2 - Math.round(volume * 2)) > 1e-8) throw new Error('Informe um volume de 0,5 a 100 litros, em passos de 0,5 litro.');
-    return volume;
+  function validateVolume(input, mode = 'concentrate') {
+    const value = number(input), minimum = mode === 'dilution' ? 0.5 : 0.1, step = mode === 'dilution' ? 0.5 : 0.1;
+    if (!Number.isFinite(value) || value < minimum || value > 100 || Math.abs(value / step - Math.round(value / step)) > 1e-7) throw new Error(`Escolha de ${format(minimum)} a 100 litros, em passos de ${format(step)} litro.`);
+    return value;
   }
-  function matchRecipes(crop, pest) {
-    return crops.includes(crop) ? recipes.filter(recipe => recipe.targets.includes(pest)) : [];
+  function calculateConcentrate(input) {
+    const volume = validateVolume(input);
+    return {volume, totalNominalML: volume * 1000, ingredients: ingredients.map(item => ({...item, amountML: item.perLiter * volume, amountText: quantity(item.perLiter * volume, 'mL')}))};
   }
-  function calculateReference(recipeId, volumeInput) {
-    const volume = validateVolume(volumeInput);
-    const recipe = recipes.find(item => item.id === recipeId);
-    if (!recipe) throw new Error('Receita não encontrada.');
-    if (recipeId === 'soap') return {
-      recipe, volume, source,
-      ingredients: [
-        {name: 'Sabão neutro', amount: quantity(10 * volume, 'g')},
-        {name: 'Água quente para dissolver', amount: liquid(0.05 * volume)},
-        {name: 'Água fria', amount: `Completar até ${liquid(volume)}`, note: 'Volume final, incluindo a porção de água quente.'}
-      ],
-      steps: [recipe.preparation, 'Homogeneíze e confira o volume total; a receita conserva a proporção de 10 g de sabão por litro final.'],
-      shopping: ['sabão neutro sem aditivos', 'balança digital gramas', 'recipiente graduado'],
-      formula: `${quantity(10, 'g/L')} × ${liquid(volume)} = ${quantity(10 * volume, 'g')}`
-    };
-    return {
-      recipe, volume, source,
-      ingredients: [
-        {name: 'Extrato de cebola já coado', amount: liquid(volume / 4)},
-        {name: 'Água para diluir', amount: liquid(3 * volume / 4)}
-      ],
-      steps: [recipe.preparation, `Meça ${liquid(volume / 4)} do extrato e junte ${liquid(3 * volume / 4)} de água. O rendimento após coar pode variar; prepare extrato suficiente para medir essa quantidade.`],
-      shopping: ['cebola', 'recipiente graduado', 'peneira fina'],
-      formula: `1 parte de extrato + 3 partes de água = ${liquid(volume)} de calda diluída`
-    };
+  function calculateDilution(input) {
+    const volume = validateVolume(input.volume, 'dilution'), dose = number(input.dose);
+    if (input.doseConfirmed !== true) throw new Error('Use uma medida de diluição que você recebeu para esta planta e este problema.');
+    if (!Number.isFinite(dose) || dose <= 0 || dose >= 1000) throw new Error('Informe a medida recebida, em mL de LEAF por litro de mistura pronta. Ela precisa ser maior que zero e menor que 1.000.');
+    const concentrateML = dose * volume;
+    if (concentrateML < 0.1) throw new Error('O resultado é menor que 0,1 mL. Confira a orientação e como medir antes de preparar.');
+    return {volume, dose, concentrateML, waterApproxML: volume * 1000 - concentrateML, doseOrigin: 'informada pelo usuário', formula: `${quantity(dose, 'mL')} de LEAF por litro × ${liquid(volume)} = ${quantity(concentrateML, 'mL')} de concentrado`};
   }
-  function calculateLabel(input) {
-    const volume = validateVolume(input.volume);
-    const dose = number(input.dose);
-    const units = {'mL/L': {denominator: 1, unit: 'mL'}, 'g/L': {denominator: 1, unit: 'g'}, 'mL/100L': {denominator: 100, unit: 'mL'}, 'g/100L': {denominator: 100, unit: 'g'}};
-    const spec = units[input.unit];
-    if (!spec) throw new Error('Selecione uma das unidades disponíveis; doses por hectare não são convertidas aqui.');
-    if (!Number.isFinite(dose) || dose < 0.001 || dose > 10000) throw new Error('Informe uma dose numérica entre 0,001 e 10.000, conforme a bula.');
-    if (!clean(input.product, 100)) throw new Error('Informe o nome do produto.');
-    if (input.labelConfirmed !== true) throw new Error('Confira na bula a dose, a cultura e o alvo antes de calcular.');
-    const amount = dose * volume / spec.denominator;
-    // Do not silently round tiny quantities to zero or produce a liquid amount exceeding the tank.
-    if (amount < 0.001) throw new Error('O resultado é menor que 0,001 unidade. Revise a dose e a capacidade de medição com assistência técnica.');
-    if (spec.unit === 'mL' && amount >= volume * 1000) throw new Error('A quantidade do produto é igual ou maior que o volume final. Revise a unidade e a dose da bula.');
-    return {volume, dose, unit: input.unit, product: clean(input.product, 100), amount, amountText: quantity(amount, spec.unit), formula: `(${quantity(dose, spec.unit)} ÷ ${quantity(spec.denominator, 'L')}) × ${liquid(volume)} = ${quantity(amount, spec.unit)}`};
-  }
-  function observations(pest) {
-    const tips = {
-      'Pulgões': 'Observe colônias nos brotos e no verso das folhas, folhas enroladas, formigas e inimigos naturais como joaninhas.',
-      'Cochonilhas': 'Fotografe os organismos aderidos a folhas e ramos; procure secreções e registre se há formigas.',
-      'Tripes': 'Registre raspagens ou áreas prateadas e fotografe os insetos, se possível com ampliação.',
-      'Lagartas': 'Procure ovos, lagartas e excrementos. Registre a localização e o padrão dos danos.',
-      'Vaquinhas': 'Fotografe os besouros e os furos nas folhas para confirmar o organismo presente.',
-      'Ácaros': 'Use uma lupa para observar o verso das folhas, pontilhado claro e possíveis teias finas.',
-      'Mosca-branca': 'Observe o verso das folhas e se há pequenos insetos brancos voando quando a planta se movimenta.',
-      'Lesmas ou caracóis': 'Procure trilhas de muco e danos irregulares, sobretudo em áreas úmidas ao entardecer.',
-      'Manchas nas folhas': 'Fotografe as manchas e a planta inteira. Registre irrigação, chuva recente e distribuição dos sintomas.',
-      'Amarelecimento / murcha': 'Observe umidade e drenagem do solo, padrão do amarelecimento e alterações nas raízes; há várias causas possíveis.'
-    };
-    return [tips[pest] || 'Fotografe a planta inteira e os dois lados das folhas; confirme a causa dos sinais antes de escolher o manejo.', 'Compare plantas afetadas e sadias e registre a evolução; preserve os organismos benéficos e discuta medidas de manejo integrado com assistência técnica.'];
+  function contextFor(crop, problem) {
+    const context = {focus: 'A receita reúne os componentes do LEAF na proporção registrada pela equipe.', evidence: 'O artigo do LEAF descreve os ingredientes e os contextos dos testes do projeto.', observations: []};
+    if (problem === 'Pulgões') {
+      context.focus = 'O nim integra a parte voltada aos insetos na descrição do LEAF. Alho, cebola e sabão potássico também fazem parte da mistura completa.';
+      context.evidence = ['Alface', 'Couve'].includes(crop) ? 'Os documentos do LEAF relatam observações em alface e couve com pulgões. A orientação de diluição deve considerar o seu cultivo.' : 'Os relatos do LEAF sobre pulgões citam alface e couve. A orientação de uso deve considerar a planta que você selecionou.';
+      context.observations.push('Veja se há bichinhos agrupados nos brotos ou por baixo das folhas. Fotografe também folhas enroladas e formigas.');
+    } else if (['Fungos ou mofo', 'Manchas nas folhas'].includes(problem)) {
+      context.focus = 'Própolis e cravo aparecem no estudo do LEAF sobre fungos. A receita mantém esses ingredientes na proporção original.';
+      context.evidence = ['Tomate', 'Morango'].includes(crop) ? 'O diário do LEAF descreve testes em tomates e morangos já colhidos e em laboratório. Esse contexto é diferente do uso na lavoura.' : 'O projeto descreve testes com fungos em frutos e em laboratório. Manchas nas folhas também podem ter outras causas.';
+      context.observations.push('Observe onde começam as manchas ou o mofo e se há excesso de umidade. Tire fotos da planta inteira e da parte afetada.', 'Não use a mistura para tentar recuperar alimento mofado ou estragado para consumo.');
+    } else if (problem === 'Ácaros') {
+      context.focus = 'A pimenta-malagueta é relacionada aos ácaros na descrição dos ingredientes do LEAF. Ela permanece na proporção original.';
+      context.observations.push('Procure pontinhos claros nas folhas e teias finas. Uma lupa ajuda a observar o lado de baixo das folhas.');
+    } else if (problem === 'Raízes com caroços') {
+      context.focus = 'Alho e cebola aparecem nos materiais do LEAF entre os componentes pesquisados para organismos que atacam as raízes.';
+      context.observations.push('Fotografe as raízes com caroços e veja se a planta cresce pouco ou murcha. Confirme a causa antes de colocar qualquer produto no solo.');
+    } else if (problem === 'Lagartas') context.observations.push('Procure lagartas, ovos, folhas comidas e pontinhos de fezes. Fotografe o animal encontrado.');
+    else if (problem === 'Cochonilhas') context.observations.push('Observe bolinhas, placas ou material parecido com algodão grudados nos ramos e folhas. Registre também a presença de formigas.');
+    else if (problem === 'Mosca-branca') context.observations.push('Veja se pequenos insetos brancos voam ao mexer na planta e observe o verso das folhas.');
+    else if (problem === 'Amarelecimento ou murcha') context.observations.push('Confira a umidade do solo, a drenagem e quais folhas estão amarelando. Falta ou excesso de água também podem causar esses sinais.');
+    else context.observations.push('Fotografe a planta inteira, os dois lados das folhas e o que chamou sua atenção. Leve as fotos à assistência técnica para identificar o problema.');
+    context.observations.push('Compare plantas afetadas com plantas sadias e proteja joaninhas, abelhas e outros animais úteis à lavoura.');
+    return context;
   }
   function createPlan(input) {
-    const crop = clean(input.crop, 100), pest = clean(input.pest, 100), volume = validateVolume(input.volume);
-    if (!crop || !pest) throw new Error('Selecione a cultura e a ocorrência.');
-    const mode = input.mode === 'label' ? 'label' : 'reference';
-    const matches = matchRecipes(crop, pest);
-    const requested = input.recipe || 'auto';
-    const selected = requested === 'auto' ? matches[0] : matches.find(recipe => recipe.id === requested);
-    const plan = {
-      mode, crop, pest, volume, stage: clean(input.stage, 100), symptoms: clean(input.symptoms), location: clean(input.location, 100), observations: observations(pest),
-      reference: null, calculation: null, alternatives: matches.map(recipe => ({id: recipe.id, title: recipe.title})),
-      notices: ['Referência educacional e cálculo de proporções. Confirme a identificação e a adequação ao cultivo com assistência técnica; este plano não é um receituário agronômico.']
-    };
-    if (mode === 'label') plan.calculation = calculateLabel({...input, volume});
-    else if (selected) plan.reference = calculateReference(selected.id, volume);
-    else plan.noMatch = requested === 'auto' ? 'A biblioteca inicial ainda não contém uma formulação de referência para essa combinação. O roteiro abaixo ajuda a confirmar a ocorrência. Se já possui produto indicado, use “Produto com bula” para calcular as medidas.' : 'A receita escolhida não é relacionada pela biblioteca a essa cultura e ocorrência. Experimente a busca automática ou use uma dose já conferida na bula.';
-    if (plan.stage === 'Próxima da colheita') plan.notices.push('Cultivo próximo da colheita: não aplique antes de confirmar o intervalo de segurança específico. A calculadora não determina resíduos nem libera a colheita.');
-    if (plan.stage === 'Muda / início do crescimento') plan.notices.push('Mudas podem ser mais sensíveis. Confirme tolerância e fitotoxicidade antes de utilizar qualquer preparo.');
-    if (plan.stage === 'Floração') plan.notices.push('Na floração, proteja polinizadores e evite atingir flores e insetos benéficos. Confirme se o manejo é apropriado a essa fase.');
+    const crop = clean(input.crop, 100), problem = clean(input.problem, 100), stage = clean(input.stage, 100), severity = clean(input.severity, 100);
+    if (!crops.includes(crop)) throw new Error('Escolha o que você está plantando.');
+    if (!problems.includes(problem)) throw new Error('Escolha o problema ou marque “Não sei identificar”.');
+    if (!stages.includes(stage) || !severities.includes(severity)) throw new Error('Informe a fase das plantas e quanto o problema se espalhou.');
+    const mode = input.mode === 'dilution' ? 'dilution' : 'concentrate', volume = validateVolume(input.volume, mode);
+    const plan = {mode, crop, problem, stage, severity, volume, context: contextFor(crop, problem), notes: clean(input.notes), location: clean(input.location, 100), precautions: [], sources: Object.values(sources), concentrate: null, dilution: null};
+    if (mode === 'concentrate') plan.concentrate = calculateConcentrate(volume);
+    else plan.dilution = calculateDilution(input);
+    plan.priority = severity === 'Muitas plantas' ? 'Como muitas plantas estão afetadas, procure assistência técnica com prioridade e leve fotos da área.' : severity === 'Está se espalhando' ? 'Marque as plantas afetadas e acompanhe se o problema avança. Peça ajuda para decidir o momento de agir.' : 'Observe as plantas afetadas e as vizinhas e registre se aparecem novos focos.';
+    plan.precautions.push('Não aumente a concentração porque o problema está mais forte. Use a medida de diluição indicada para a sua situação.');
+    if (stage === 'Muda pequena') plan.precautions.push('Mudas são mais sensíveis. Confirme o uso nessa fase: o óleo de cravo pode danificar plantas dependendo da concentração e de como é aplicado.');
+    if (stage === 'Com flores') plan.precautions.push('Proteja as abelhas. Não direcione a aplicação às flores nem aos insetos benéficos.');
+    if (stage === 'Perto de colher' || stage === 'Com frutos') plan.precautions.push('Confirme quanto tempo deve esperar até a colheita. Não use o prazo de outro produto para decidir quando colher ou consumir.');
+    plan.precautions.push('Use luvas e proteção para os olhos ao manusear. Meça com utensílios exclusivos para esse fim e mantenha longe de crianças, alimentos e animais.');
     return plan;
   }
   function planText(plan, date = new Date().toLocaleDateString('pt-BR')) {
-    const lines = ['LEAF — Plano de referência agrícola', `Gerado em ${date}`, `Cultura: ${plan.crop}`, `Ocorrência informada: ${plan.pest}`, `Estágio: ${plan.stage}`, `Volume final: ${liquid(plan.volume)}`];
+    const lines = ['LEAF — Ficha do seu cultivo', `Data: ${date}`, `Plantio: ${plan.crop}`, `Problema informado: ${plan.problem}`, `Fase: ${plan.stage}`, `Situação: ${plan.severity}`, ''];
+    if (plan.mode === 'concentrate') lines.push(`RECEITA ORIGINAL DO CONCENTRADO LEAF — lote nominal de ${liquid(plan.volume)}`, 'Concentrado é a mistura-base; não é produto pronto para pulverizar.', ...plan.concentrate.ingredients.map(item => `${item.name}: ${item.amountText}. ${item.help}`), '', 'COMO ORGANIZAR O PREPARO', '1. Separe os extratos já preparados e equivalentes aos usados pelo projeto.', '2. Meça cada quantidade em mL. Alho e cebola são um extrato combinado.', '3. A descrição original orienta misturar os extratos e o óleo em um recipiente escuro e depois acrescentar o sabão potássico, misturando bem.', '4. A tabela original já soma o volume nominal do lote. Água acrescentada muda a concentração; não calcule uma quantidade extra por conta própria.', '5. Identifique o recipiente como LEAF — concentrado, com a data. Siga a orientação de preparo e armazenamento recebida da equipe.', 'Para o pulverizador, é necessária uma orientação de diluição. Não aplique o concentrado puro.');
+    else lines.push(`MISTURA PARA O PULVERIZADOR — ${liquid(plan.volume)} finais`, `Medida informada por você: ${quantity(plan.dilution.dose, 'mL')} de LEAF por litro de mistura pronta.`, `Concentrado LEAF: ${quantity(plan.dilution.concentrateML, 'mL')}`, `Água: completar até ${liquid(plan.volume)} de mistura final.`, plan.dilution.formula, 'O cálculo reproduz sua orientação recebida; não confirma se a dose é adequada ao cultivo.', 'Siga a ordem de mistura e os cuidados indicados na orientação que recebeu.');
+    lines.push('', 'PARA O SEU CASO', plan.context.focus, plan.context.evidence, plan.priority, ...plan.context.observations.map(item => `• ${item}`), '', 'CUIDADOS', ...plan.precautions.map(item => `• ${item}`));
+    if (plan.notes) lines.push('', `O que você observou: ${plan.notes}`);
     if (plan.location) lines.push(`Região: ${plan.location}`);
-    if (plan.symptoms) lines.push(`Observações: ${plan.symptoms}`);
-    if (plan.reference) {
-      const ref = plan.reference;
-      lines.push('', ref.recipe.title, ref.recipe.description, '', 'INGREDIENTES', ...ref.ingredients.map(item => `${item.name}: ${item.amount}${item.note ? ` (${item.note})` : ''}`), '', 'PREPARO', ...ref.steps.map((step, i) => `${i + 1}. ${step}`), '', `Proporção: ${ref.formula}`, '', 'COLHEITA', ref.recipe.interval, '', `Fonte: ${source.title}`, source.url, `Fonte consultada em ${source.consulted}`);
-    }
-    if (plan.calculation) {
-      const calc = plan.calculation;
-      lines.push('', 'CÁLCULO A PARTIR DA BULA INFORMADA', `Produto: ${calc.product}`, `Dose transcrita pelo usuário: ${format(calc.dose)} ${calc.unit}`, `Quantidade calculada: ${calc.amountText}`, `Cálculo: ${calc.formula}`, `Água: completar o volume final de ${liquid(calc.volume)}, seguindo a ordem de preparo da bula.`, 'A bula e a indicação não foram verificadas pelo site. Frequência, carência, EPI e reentrada devem ser consultados nela.');
-    }
-    if (plan.noMatch) lines.push('', plan.noMatch);
-    lines.push('', 'OBSERVAÇÃO E MANEJO', ...plan.observations.map(item => `• ${item}`), '', 'CUIDADOS', ...plan.notices.map(item => `• ${item}`));
-    if (plan.reference) lines.push('• Use proteção apropriada, evite contato com pele e olhos, calor excessivo, deriva e contato com água, animais e organismos benéficos. Não misture esta referência com outros produtos.');
+    lines.push('', 'FONTES DO LEAF', ...plan.sources.map(source => `${source.title} — ${source.section}\n${source.url}`), '', 'Esta ficha organiza a receita registrada e as informações do cultivo. Não substitui a orientação de uso para a sua plantação.');
     return lines.join('\n');
   }
-  return Object.freeze({source, crops, recipes, number, format, quantity, liquid, validateVolume, matchRecipes, calculateReference, calculateLabel, createPlan, planText});
+  return Object.freeze({sources, ingredients, crops, problems, stages, severities, number, format, quantity, liquid, validateVolume, calculateConcentrate, calculateDilution, contextFor, createPlan, planText});
 });

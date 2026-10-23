@@ -13,15 +13,18 @@ Abra http://127.0.0.1:8765. O teste usa apenas o Node.js, sem instalação de de
 
 ## Assistente
 
-- Biblioteca inicial: calda de sabão neutro e calda de cebola, descritas na [Circular Técnica 47, Embrapa Hortaliças, janeiro de 2007, página 14](https://www.infoteca.cnptia.embrapa.br/bitstream/doc/781607/1/ct47.pdf#page=14), consultada em 23/10/2026. As referências não são fórmulas próprias do LEAF nem uma validação para cada cultivar.
-- A seleção relaciona somente os alvos da publicação e as culturas de hortaliças presentes no formulário. A compatibilidade, a tolerância da cultivar e a identificação devem ser confirmadas antes do uso. Ocorrências fora da biblioteca geram roteiro de observação.
-- Sabão: proporção de 100 g em 10 L; a porção de dissolução de 0,5 L está incluída no volume final. A publicação menciona aproximadamente duas semanas antes da colheita, sem estabelecer intervalos específicos por cultura.
-- Cebola: extrato-base com 1 kg de cebola para 10 L de água e repouso de 10 dias. Diluição final de uma parte de extrato coado para três partes de água. O rendimento após a coagem não é presumido. A publicação não informa carência dessa calda.
-- Produto com bula: cálculo aritmético a partir dos dados transcritos pelo usuário. São suportadas doses em mL/L, g/L, mL/100 L e g/100 L. Não calcula doses por hectare nem verifica registro, indicação ou autenticidade de bula. O resultado não é receituário agronômico.
-- Volume final entre 0,5 e 100 L, em incrementos de 0,5 L. Dose e volume finitos, limites de medição e quantidade de produto líquido incompatível com o tanque são verificados.
-- Impressão, cópia e arquivo `.txt` incluem medidas, preparo, contexto e fonte. Os dados não são enviados nem persistidos pelo site.
+A receita agora é a formulação do próprio LEAF, consultada nos artigos e registros de `Files/`. Consulte [LEAF-FORMULACAO.md](LEAF-FORMULACAO.md) para as fontes, transcrição da tabela e critérios de cálculo.
 
-Para ampliar a biblioteca, acrescente em `assistant-core.js` somente formulações com fonte identificável, proporções inequívocas, limites e alvos documentados, e cubra conversões com testes.
+- Seis entradas da tabela original de 1 L: extrato de nim preparado (300 mL), própolis (180 mL), óleo de cravo (30 mL), extrato combinado de alho e cebola (300 mL), pimenta (120 mL) e sabão potássico (70 mL).
+- Modo principal: dimensionar essa receita concentrada de 0,1 a 100 L, preservando as proporções registradas. Os 300 mL de alho/cebola não são duplicados; nim preparado não é substituído por óleo puro.
+- Modo separado: calcular água e concentrado a partir de uma orientação numérica recebida pelo agricultor, em mL por litro de mistura final. Não há dose predefinida nem dose deduzida de outro produto.
+- O contexto varia com planta, sinal, fase e extensão do problema. A intensidade não aumenta automaticamente concentração ou frequência. A distinção entre concentrado e mistura pronta aparece no formulário e na ficha.
+- Perguntas em linguagem cotidiana, nomes de sinais junto aos termos de pragas, letras maiores e unidade explícita. “Não sei identificar” é uma opção válida.
+- Mudanças no formulário invalidam a ficha anterior, para evitar usar medidas antigas após alterar o volume ou o caso.
+- Impressão, cópia e texto para download incluem medidas, contexto, cuidados e fontes. A impressão abre os detalhes de fontes temporariamente e restaura o estado anterior depois.
+- Dados ficam no navegador, sem envio ou persistência. Não há IA generativa, API, banco de dados nem dependência externa.
+
+Os dez testes de `tests/assistant.test.cjs` cobrem composição original, escala, personalização sem criação de doses, fases, intensidade, diluição aritmética, unidades e entradas inválidas.
 
 ## Conteúdo e notícia
 
