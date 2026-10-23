@@ -1,178 +1,123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#10291f">
-<meta name="description" content="LEAF — cuidado agrícola ecológico, acessível e orientado por dados. Conheça o projeto e organize uma pesquisa responsável de manejo.">
-<title>LEAF | Cuidado agrícola inteligente</title>
-<style>
-:root{--bg:#f4f7f1;--paper:#fff;--ink:#18352a;--muted:#5e7165;--green:#2e7d50;--lime:#c9ee83;--line:#dce6da;--dark:#10291f;--soft:#eaf2e5;--warn:#fff4d8;--shadow:0 18px 50px #10291f12}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit}button,input,select,textarea{font:inherit}button,a,.chip{transition:.2s ease}button{cursor:pointer}.wrap{width:min(1160px,calc(100% - 40px));margin:auto}.topbar{position:sticky;top:0;z-index:20;background:#10291fee;color:#fff;backdrop-filter:blur(16px);border-bottom:1px solid #ffffff1c}.nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:900;letter-spacing:.1em}.brand-mark{width:39px;height:39px;border-radius:13px;background:var(--lime);display:grid;place-items:center;color:#153b29;font-size:21px}.links{display:flex;align-items:center;gap:23px}.links a{text-decoration:none;font-size:14px;color:#d7e5d9}.links a:hover{color:var(--lime)}.nav-cta,.btn{border:0;border-radius:999px;padding:12px 18px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}.nav-cta,.btn-primary{background:var(--lime);color:#153b29}.btn-primary:hover,.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px #c9ee8333}.btn-secondary{background:transparent;border:1px solid #ffffff60;color:white}.btn-light{background:var(--soft);color:var(--ink)}.hero{background:var(--dark);color:#fff;overflow:hidden;position:relative;padding:88px 0 82px}.hero:before{content:"";position:absolute;width:520px;height:520px;border:1px solid #b6e96d25;border-radius:50%;right:-120px;top:-220px;box-shadow:0 0 0 60px #b6e96d09,0 0 0 120px #b6e96d07}.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;position:relative}.eyebrow{font-size:12px;letter-spacing:.17em;text-transform:uppercase;font-weight:900;color:var(--green)}.hero .eyebrow{color:var(--lime)}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(42px,6vw,72px);line-height:1.03;letter-spacing:-.055em;margin:20px 0}.hero p{color:#d0dfd3;font-size:18px;max-width:620px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.hero-art{min-height:340px;display:grid;place-items:center;position:relative}.orbit{width:min(360px,90%);aspect-ratio:1;border:1px solid #c9ee8350;border-radius:50%;display:grid;place-items:center;position:relative}.orbit:before,.orbit:after{content:"";position:absolute;border:1px dashed #c9ee8340;border-radius:50%;inset:34px}.orbit:after{inset:70px}.leaf-core{width:150px;height:180px;background:linear-gradient(145deg,#d4f49b,#62b66c);border-radius:80% 8% 70% 12%;transform:rotate(-35deg);display:grid;place-items:center;box-shadow:0 20px 80px #78c96c35;position:relative;z-index:2}.leaf-core svg{transform:rotate(35deg);width:94px}.float-tag{position:absolute;z-index:3;background:#1d3d2f;border:1px solid #c9ee8340;padding:10px 14px;border-radius:13px;font-size:12px;color:#e5f4e6;box-shadow:var(--shadow)}.tag-one{top:15%;left:-4%}.tag-two{right:-3%;top:38%}.tag-three{bottom:9%;left:7%}.stats{background:var(--paper);border-bottom:1px solid var(--line)}.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);padding:26px 0;gap:20px}.stat{padding-left:20px;border-left:3px solid var(--lime)}.stat strong{display:block;font-size:15px}.stat span{font-size:13px;color:var(--muted)}section{padding:86px 0}.section-head{max-width:720px;margin-bottom:34px}.section-head h2{font-size:clamp(30px,4vw,46px);letter-spacing:-.04em;line-height:1.12;margin:12px 0}.section-head p{color:var(--muted);font-size:17px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:25px;box-shadow:var(--shadow)}.iconbox{width:45px;height:45px;border-radius:14px;background:var(--soft);display:grid;place-items:center;font-size:22px;margin-bottom:20px}.card h3{font-size:20px;margin-bottom:9px}.card p{color:var(--muted);font-size:14px;margin-bottom:0}.dark-section{background:#eaf1e5}.split{display:grid;grid-template-columns:.85fr 1.15fr;gap:50px;align-items:start}.steps{display:grid;gap:13px}.step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);padding:18px;border-radius:17px}.step-num{flex:0 0 38px;height:38px;border-radius:12px;background:var(--dark);color:var(--lime);display:grid;place-items:center;font-weight:900}.step h3{font-size:16px;margin:0 0 4px}.step p{margin:0;color:var(--muted);font-size:14px}.notice{padding:17px 19px;background:var(--warn);border:1px solid #ead69a;border-radius:15px;color:#59461c;font-size:14px}.tool-section{background:var(--dark);color:#fff}.tool-section .section-head p{color:#c9d9cc}.tool-layout{display:grid;grid-template-columns:.88fr 1.12fr;gap:24px;align-items:start}.panel{background:#fff;color:var(--ink);border-radius:23px;padding:27px;box-shadow:var(--shadow)}.panel h3{font-size:21px;margin-bottom:5px}.panel-intro{font-size:13px;color:var(--muted);margin-bottom:22px}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:850;color:#42594b}.field input,.field select,.field textarea{width:100%;padding:12px 13px;border:1px solid #d5e1d5;border-radius:11px;background:#fbfdf9;color:var(--ink);outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px #2e7d501a}.field small{color:var(--muted);font-size:11px}.form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.result{min-height:320px}.empty-state{height:100%;min-height:280px;display:grid;place-items:center;text-align:center;color:var(--muted);padding:30px}.empty-icon{font-size:40px;margin-bottom:10px}.result h3{margin-bottom:7px}.result p,.result li{font-size:14px;color:var(--muted)}.result ul{padding-left:19px}.pill{display:inline-block;background:var(--soft);color:#2a6a43;padding:5px 10px;border-radius:99px;font-size:11px;font-weight:900;margin-bottom:12px}.result-block{border-top:1px solid var(--line);padding-top:16px;margin-top:16px}.shop-list{display:grid;gap:10px;margin-top:13px}.shop-item{border:1px solid var(--line);border-radius:14px;padding:13px;display:flex;align-items:center;justify-content:space-between;gap:12px}.shop-item strong{display:block;font-size:13px}.shop-item span{display:block;font-size:11px;color:var(--muted)}.shop-item a{font-size:12px;font-weight:800;text-decoration:none;background:var(--soft);padding:8px 11px;border-radius:99px;white-space:nowrap}.shop-item a:hover{background:var(--lime)}.tiny{font-size:12px!important}.sources{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.sources a{font-size:12px;border:1px solid var(--line);padding:8px 10px;border-radius:99px;text-decoration:none}.sources a:hover{background:var(--soft)}.research-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.research-card{border:1px solid var(--line);border-radius:18px;padding:22px;background:#fff}.research-card h3{margin:0 0 8px}.research-card p{color:var(--muted);font-size:14px;margin-bottom:0}.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.time-card{border-top:3px solid var(--green);padding-top:16px}.time-card strong{display:block;margin-bottom:8px}.time-card p{font-size:13px;color:var(--muted)}.faq{max-width:850px}.faq details{border-bottom:1px solid var(--line);padding:17px 0}.faq summary{cursor:pointer;font-weight:800}.faq details p{color:var(--muted);font-size:14px;padding-top:12px;margin-bottom:0}.footer{background:var(--dark);color:#fff;padding:42px 0}.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}.footer p{color:#c5d8c9;font-size:13px;margin:6px 0 0}.footer-links{display:flex;gap:15px;flex-wrap:wrap}.footer-links a{color:#d6e6d8;font-size:13px}.print-only{display:none}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#18352a;color:white;padding:12px 17px;border-radius:12px;z-index:99;box-shadow:var(--shadow);display:none}.toast.show{display:block}.reveal{animation:fadeUp .55s both}@keyframes fadeUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}@media(max-width:850px){.links{display:none}.hero-grid,.split,.tool-layout{grid-template-columns:1fr}.hero{padding:62px 0}.hero-art{min-height:280px}.cards{grid-template-columns:1fr 1fr}.timeline{grid-template-columns:1fr 1fr}.stats-grid{grid-template-columns:1fr}.stat{padding:5px 0 5px 15px}.research-grid{grid-template-columns:1fr}}@media(max-width:560px){.wrap{width:min(100% - 28px,1160px)}section{padding:60px 0}.cards{grid-template-columns:1fr}.field-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.panel{padding:20px}.hero-art{min-height:230px}.orbit{width:245px}.leaf-core{width:100px;height:130px}.float-tag{font-size:10px;padding:7px 9px}.tag-one{left:-2%}.tag-two{right:-2%}.timeline{grid-template-columns:1fr}.shop-item{align-items:flex-start}.shop-item a{white-space:normal;text-align:center}}
-@media print{body{background:white;color:#111}.topbar,.hero,.stats,section:not(#ferramenta),.tool-section .section-head,.tool-layout>form,.form-actions,.footer,.no-print{display:none!important}#ferramenta{display:block!important;padding:0!important;background:white!important;color:#111!important}.wrap{width:100%}.tool-layout{display:block}.panel{box-shadow:none;border:0;padding:0}.panel.result{display:block!important}.print-only{display:block}.result-block,.shop-item{break-inside:avoid}.shop-item a{border:1px solid #aaa;background:white}.panel h3{color:#111}.result p,.result li{color:#333}.notice{background:white}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#163c2d">
+  <meta name="description" content="Conheça o LEAF, projeto do Colégio Militar de Juiz de Fora que une visão computacional, automação e pesquisa agrícola. Explore o assistente com receitas documentadas e cálculo de medidas.">
+  <meta property="og:title" content="LEAF — Ciência que cultiva possibilidades">
+  <meta property="og:description" content="Tecnologia acessível, visão computacional e cuidado agrícola. Conheça a pesquisa do CMJF e explore o assistente LEAF.">
+  <meta property="og:type" content="website">
+  <title>LEAF — Ciência que cultiva possibilidades</title>
+  <link rel="icon" type="image/svg+xml" href="assets/leaf.svg">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/assistant-core.js" defer></script>
+  <script src="assets/app.js" defer></script>
 </head>
 <body>
-<header class="topbar">
- <div class="wrap nav">
-  <a class="brand" href="#inicio" aria-label="LEAF, início"><span class="brand-mark">⌁</span><span>LEAF</span></a>
-  <nav class="links" aria-label="Navegação principal"><a href="#projeto">O projeto</a><a href="#como-funciona">Como funciona</a><a href="#ferramenta">Assistente agrícola</a><a href="#pesquisa">Pesquisa</a></nav>
-  <a class="nav-cta" href="#ferramenta">Explorar assistente ↗</a>
- </div>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="#inicio" aria-label="LEAF, início"><svg viewBox="0 0 40 44" aria-hidden="true"><path d="M6 35C1 14 19 4 35 4c0 18-7 33-29 31Z" fill="currentColor"/><path d="m6 40 23-27M13 31l-1-11m8 3 10-1" fill="none" stroke="#f2f5e9" stroke-width="2"/></svg><span>LEAF<span class="brand-sub">Ciência. Tecnologia. Cultivo.</span></span></a>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">Menu <span aria-hidden="true">☰</span></button>
+    <nav id="mainNav" aria-label="Navegação principal"><a href="#projeto">O projeto</a><a href="#tecnologia">A tecnologia</a><a href="#pesquisa">Pesquisa</a><a href="#equipe">Quem faz</a><a class="button small" href="#assistente">Assistente agrícola <span aria-hidden="true">↗</span></a></nav>
+  </div>
 </header>
-<main>
-<section class="hero" id="inicio">
- <div class="wrap hero-grid">
-  <div>
-   <div class="eyebrow">Tecnologia • agricultura • sustentabilidade</div>
-   <h1>Cuidar da lavoura.<br><span style="color:var(--lime)">Pensar no futuro.</span></h1>
-   <p>O LEAF conecta visão computacional, automação e pesquisa de alternativas de manejo para apoiar decisões agrícolas de forma acessível e consciente.</p>
-   <div class="hero-actions"><a class="btn btn-primary" href="#projeto">Conheça o LEAF <span>↓</span></a><a class="btn btn-secondary" href="#ferramenta">Abrir assistente agrícola</a></div>
-  </div>
-  <div class="hero-art" aria-label="Ilustração de uma folha e tecnologia">
-   <div class="orbit"><div class="leaf-core"><svg viewBox="0 0 100 120" fill="none" aria-hidden="true"><path d="M12 105C22 64 42 30 88 10C89 51 74 91 12 105Z" fill="#1d6540"/><path d="M15 104C37 78 56 48 82 18" stroke="#d9f8a2" stroke-width="3" stroke-linecap="round"/><path d="M39 76L33 49M54 57L53 34M29 88L16 75M60 49L77 51" stroke="#d9f8a2" stroke-width="2" stroke-linecap="round"/></svg></div><span class="float-tag tag-one">⌘ Visão computacional</span><span class="float-tag tag-two">✳ Manejo responsável</span><span class="float-tag tag-three">⌁ Automação acessível</span></div>
-  </div>
- </div>
-</section>
-<div class="stats"><div class="wrap stats-grid"><div class="stat"><strong>Identificação assistida por imagem</strong><span>Processamento de imagem com OpenCV</span></div><div class="stat"><strong>Protótipo automatizado</strong><span>Integração de software, ESP32 e mecanismos</span></div><div class="stat"><strong>Pesquisa em andamento</strong><span>Resultados e formulações exigem validação</span></div></div></div>
-<section id="projeto">
- <div class="wrap">
-  <div class="section-head"><div class="eyebrow">01 / O projeto</div><h2>Uma proposta de cuidado agrícola de baixo custo.</h2><p>LEAF significa <em>Low-Cost Ecological AgroCare Framework</em>. A iniciativa explora como ferramentas de programação e automação podem ajudar pequenos e médios produtores a observar a lavoura e aplicar manejo de forma mais direcionada.</p></div>
-  <div class="cards">
-   <article class="card"><div class="iconbox">⌕</div><h3>Percepção visual</h3><p>O código usa Python e OpenCV para processar imagens, segmentar cores e analisar contornos e agrupamentos de pixels. A classificação atual é heurística e não deve ser tratada como diagnóstico agronômico definitivo.</p></article>
-   <article class="card"><div class="iconbox">⚙</div><h3>Automação</h3><p>O protótipo integra o computador a um ESP32 por comunicação serial e inclui firmware para controlar movimento e bombas. O comportamento depende da montagem, calibração e testes do equipamento.</p></article>
-   <article class="card"><div class="iconbox">♧</div><h3>Pesquisa sustentável</h3><p>O projeto investiga alternativas de manejo e formulações com ingredientes de origem vegetal. “Natural” não significa automaticamente seguro, eficaz ou permitido para qualquer cultura.</p></article>
-  </div>
- </div>
-</section>
-<section class="dark-section" id="como-funciona">
- <div class="wrap split">
-  <div><div class="eyebrow">02 / Do dado à decisão</div><div class="section-head"><h2>Como o sistema foi pensado.</h2><p>Uma arquitetura experimental que combina observação, processamento e atuação mecânica — com validação humana no processo.</p></div><div class="notice"><strong>Limite importante:</strong> a detecção por imagem do protótipo não confirma, sozinha, a espécie de uma praga nem define um tratamento seguro. A identificação precisa ser conferida por pessoa qualificada.</div></div>
-  <div class="steps">
-   <div class="step"><div class="step-num">01</div><div><h3>Captura da imagem</h3><p>Uma câmera fornece imagens da área ou da planta a ser observada.</p></div></div>
-   <div class="step"><div class="step-num">02</div><div><h3>Processamento</h3><p>O programa aplica operações de imagem, máscaras de cor e análise de contornos e blobs.</p></div></div>
-   <div class="step"><div class="step-num">03</div><div><h3>Interpretação assistida</h3><p>O resultado é uma indicação preliminar, não um laudo de presença ou espécie de praga.</p></div></div>
-   <div class="step"><div class="step-num">04</div><div><h3>Controle do protótipo</h3><p>O ESP32 recebe comandos seriais e controla componentes do mecanismo experimental.</p></div></div>
-  </div>
- </div>
-</section>
-<section id="ferramenta" class="tool-section">
- <div class="wrap">
-  <div class="section-head"><div class="eyebrow">03 / Assistente agrícola</div><h2>Organize a avaliação da sua lavoura.</h2><p>Informe o contexto para gerar uma ficha de observação, próximos passos de manejo integrado e buscas de preço dos itens que você selecionar. O assistente não substitui diagnóstico agronômico e não inventa receitas ou preços.</p></div>
-  <div class="tool-layout">
-   <form class="panel" id="cropForm">
-    <h3>Dados da ocorrência</h3><p class="panel-intro">Quanto mais precisa a descrição, melhor a ficha de avaliação.</p>
-    <div class="field-grid">
-     <div class="field"><label for="crop">Tipo de planta / cultura *</label><select id="crop" required><option value="">Selecione…</option><option>Alface</option><option>Morango</option><option>Couve-flor</option><option>Couve</option><option>Tomate</option><option>Melancia</option><option>Outra cultura</option></select></div>
-     <div class="field"><label for="pest">Praga ou sintoma suspeito *</label><select id="pest" required><option value="">Selecione…</option><option>Pulgões</option><option>Lagartas</option><option>Ácaros</option><option>Mosca-branca</option><option>Lesmas ou caracóis</option><option>Manchas nas folhas</option><option>Amarelecimento / murcha</option><option>Não sei identificar</option><option>Outra ocorrência</option></select></div>
-     <div class="field"><label for="stage">Estágio da planta</label><select id="stage"><option>Não informado</option><option>Muda / início do crescimento</option><option>Crescimento vegetativo</option><option>Floração</option><option>Frutificação</option><option>Próxima da colheita</option></select></div>
-     <div class="field"><label for="scale">Área afetada</label><select id="scale"><option>Algumas plantas</option><option>Pequena parte do canteiro</option><option>Vários canteiros</option><option>Grande parte da lavoura</option><option>Não sei estimar</option></select></div>
-     <div class="field"><label for="location">Estado / região (opcional)</label><input id="location" placeholder="Ex.: Minas Gerais"></div>
-     <div class="field"><label for="when">Quando começou?</label><select id="when"><option>Acabei de observar</option><option>Há 2–3 dias</option><option>Há cerca de uma semana</option><option>Há mais de uma semana</option></select></div>
-     <div class="field full"><label for="symptoms">Descrição dos sinais observados</label><textarea id="symptoms" rows="3" placeholder="Ex.: pequenos insetos na face inferior das folhas, folhas enroladas…"></textarea></div>
-     <div class="field full"><label for="notes">Condições relevantes (opcional)</label><textarea id="notes" rows="2" placeholder="Irrigação, chuva recente, produtos já usados, presença de flores/polinizadores…"></textarea></div>
+<main id="conteudo">
+  <section class="hero" id="inicio" aria-labelledby="heroTitle">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow light"><span class="status-dot"></span> Do Colégio Militar de Juiz de Fora para o campo</p>
+        <h1 id="heroTitle">Ciência que cultiva<br><em>possibilidades.</em></h1>
+        <p class="hero-description">Um novo olhar para a agricultura. O LEAF une visão computacional, automação e pesquisa de manejo ecológico para aproximar a tecnologia de pequenos e médios produtores.</p>
+        <div class="actions"><a class="button lime" href="#assistente">Explorar assistente <span aria-hidden="true">↗</span></a><a class="text-link on-dark" href="#projeto">Conheça a pesquisa <span aria-hidden="true">↓</span></a></div>
+        <div class="hero-footnote"><span class="line-symbol" aria-hidden="true">⌁</span> Low-Cost Ecological AgroCare Framework</div>
+      </div>
+      <div class="field-visual">
+        <div class="visual-top"><span><i class="status-dot"></i> LEAF / VISÃO COMPUTACIONAL</span><span>PROTÓTIPO</span></div>
+        <svg class="botanical" viewBox="0 0 520 460" role="img" aria-labelledby="botanicalTitle botanicalDesc">
+          <title id="botanicalTitle">Ilustração do processamento de uma planta</title><desc id="botanicalDesc">Folhas dentro de uma área de observação, com marcações de análise. Diagrama ilustrativo, sem imagem de câmera real.</desc>
+          <defs>
+            <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0v32" fill="none" stroke="#93b591" stroke-opacity=".11"/></pattern>
+            <linearGradient id="leafFill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b8d98b"/><stop offset="1" stop-color="#477b45"/></linearGradient>
+            <linearGradient id="leafDark" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#82ad61"/><stop offset="1" stop-color="#315e3b"/></linearGradient>
+          </defs>
+          <path fill="url(#grid)" d="M0 0h520v460H0z"/>
+          <circle cx="260" cy="230" r="170" fill="none" stroke="#b2d397" stroke-opacity=".18"/><circle cx="260" cy="230" r="122" fill="none" stroke="#b2d397" stroke-opacity=".13" stroke-dasharray="3 7"/>
+          <path d="M259 414c-2-69 15-114 2-179-6-42 11-89 40-132M265 302c-24-26-44-49-85-79m83 36c31-32 50-58 89-68m-90 42c-15-36-34-64-64-83" fill="none" stroke="#90ac64" stroke-width="5" stroke-linecap="round"/>
+          <path d="M269 216c-36-44-28-121 58-164 13 70-4 128-58 164Z" fill="url(#leafFill)"/><path d="M271 207c18-51 35-90 53-142m-36 98-15-28m30-11-9-22m-2 48 26-10" fill="none" stroke="#d7e6aa" stroke-width="1.5" opacity=".65"/>
+          <path d="M254 263c-60 2-118-40-117-115 76 15 114 55 117 115Z" fill="url(#leafDark)"/><path d="m148 159 101 98m-47-47 2-31m-19 14-25-2m61 37 2-29" fill="none" stroke="#c4d791" stroke-width="1.3" opacity=".5"/>
+          <path d="M268 312c17-67 71-109 142-91-24 71-72 103-142 91Z" fill="url(#leafFill)"/><path d="m278 307 117-75m-76 51 0-24m28 6 24 3m-65 25 22 4" fill="none" stroke="#e0eac0" stroke-width="1.4" opacity=".6"/>
+          <path d="M260 350c-53 8-98-20-112-76 64-2 102 29 112 76Z" fill="url(#leafDark)"/><path d="m155 281 99 65m-53-34 0-21m20 36-26 1" fill="none" stroke="#c4d791" stroke-width="1.3" opacity=".5"/>
+          <g fill="none" stroke="#d2ef98" stroke-width="1.8"><path d="M122 126v-18h24m202 0h24v22m0 133v22h-24m-202 0h-24v-22"/><path d="M269 216h151v-45" stroke-width=".8" stroke-dasharray="3 4"/></g>
+          <g fill="#daedbb" font-family="monospace" font-size="10"><text x="124" y="96">REGIÃO DE INTERESSE</text><text x="381" y="158">OBSERVAR</text><text x="35" y="415">x: imagem → y: análise</text><text x="381" y="415">OPEN CV / HSV</text></g>
+          <path class="scan-line" d="M99 186h310" stroke="#c9e995" opacity=".45"/>
+        </svg>
+        <div class="visual-bottom"><span>01 / OBSERVAR · ANALISAR · DIRECIONAR</span><span>Diagrama ilustrativo</span></div>
+      </div>
     </div>
-    <div class="form-actions"><button class="btn btn-primary" type="submit">Gerar ficha e plano →</button><button class="btn btn-light" type="reset">Limpar</button></div>
-   </form>
-   <div class="panel result" id="result" aria-live="polite">
-    <div class="empty-state"><div><div class="empty-icon">🌱</div><h3>Sua ficha aparecerá aqui</h3><p>Preencha a ocorrência para organizar observações, medidas preventivas e links de pesquisa de insumos.</p></div></div>
-   </div>
-  </div>
- </div>
-</section>
-<section id="pesquisa">
- <div class="wrap">
-  <div class="section-head"><div class="eyebrow">04 / Pesquisa e transparência</div><h2>Ciência antes da aplicação.</h2><p>O LEAF é um protótipo em desenvolvimento. Resultados de laboratório, testes em plantas e desempenho no campo precisam ser documentados separadamente.</p></div>
-  <div class="research-grid">
-   <article class="research-card"><h3>Formulações investigadas</h3><p>Os materiais do projeto mencionam ingredientes como nim, própolis, alho, cebola, pimenta, óleo de cravo e sabão potássico. A presença de um ingrediente na pesquisa não equivale a uma recomendação de mistura ou dose.</p></article>
-   <article class="research-card"><h3>Segurança e legislação</h3><p>Antes de qualquer aplicação, confirme registro e indicação para cultura e alvo, leia o rótulo e consulte assistência técnica. Não misture substâncias nem aplique em alimentos, flores ou perto de polinizadores sem orientação técnica.</p></article>
-   <article class="research-card"><h3>Preços atualizados</h3><p>Esta página gera pesquisas por loja para comparar ofertas. Um HTML estático não consegue garantir preços em tempo real, estoque, frete ou autenticidade; confira tudo na página do vendedor antes de comprar.</p></article>
-   <article class="research-card"><h3>Próxima etapa</h3><p>Registrar protocolo, concentração, controles, número de repetições, fitotoxicidade, eficácia observada e condições ambientais antes de transformar resultados experimentais em orientação de uso.</p></article>
-  </div>
-  <div style="margin-top:25px"><a class="btn btn-light" href="https://github.com/henriquebrtocosta/LEAF" target="_blank" rel="noopener">Ver repositório do projeto ↗</a></div>
- </div>
-</section>
-<section class="dark-section" id="equipe">
- <div class="wrap">
-  <div class="section-head"><div class="eyebrow">05 / Desenvolvimento</div><h2>Um projeto construído por etapas.</h2><p>O LEAF reúne programação, eletrônica, experimentação e comunicação científica.</p></div>
-  <div class="timeline">
-   <div class="time-card"><strong>Pesquisa</strong><p>Levantamento de alternativas, culturas de interesse e possibilidades de automação.</p></div>
-   <div class="time-card"><strong>Prototipagem</strong><p>Integração do processamento de imagens ao controle embarcado e aos componentes mecânicos.</p></div>
-   <div class="time-card"><strong>Experimentação</strong><p>Testes e registros para avaliar limitações e comparar observações com controles.</p></div>
-   <div class="time-card"><strong>Validação</strong><p>Documentar resultados, segurança, limitações e requisitos para uso real.</p></div>
-  </div>
- </div>
-</section>
-<section id="faq">
- <div class="wrap faq">
-  <div class="section-head"><div class="eyebrow">Dúvidas frequentes</div><h2>O que este assistente faz — e o que não faz.</h2></div>
-  <details><summary>O site identifica a praga com certeza?</summary><p>Não. O formulário registra a suspeita e organiza próximos passos. A identificação de espécies exige avaliação confiável, e o protótipo de visão computacional não é um diagnóstico validado.</p></details>
-  <details><summary>O site fornece uma receita pronta de agrotóxico?</summary><p>Não gera doses nem combinações personalizadas sem protocolo validado. O uso incorreto pode causar fitotoxicidade, exposição humana, danos ambientais ou deixar resíduos nos alimentos. Consulte agrônomo ou assistência técnica local.</p></details>
-  <details><summary>Os preços são comparados automaticamente?</summary><p>O site abre buscas específicas em lojas e marketplaces reconhecidos. Os resultados e a ordem de preço devem ser conferidos nas lojas, pois a página não consulta uma API de preços em tempo real.</p></details>
-  <details><summary>Posso imprimir a ficha?</summary><p>Sim. Depois de gerar a ficha, use “Imprimir / salvar PDF”. Na janela de impressão, selecione “Salvar como PDF”.</p></details>
- </div>
-</section>
+    <div class="hero-strip"><div class="container strip-grid"><div><span class="strip-index">01</span><p><strong>Visão computacional</strong><span>Enxergar para compreender</span></p></div><div><span class="strip-index">02</span><p><strong>Automação acessível</strong><span>Conectar software e mecanismo</span></p></div><div><span class="strip-index">03</span><p><strong>Pesquisa ecológica</strong><span>Investigar antes de aplicar</span></p></div></div></div>
+  </section>
+
+  <section class="section" id="projeto">
+    <div class="container">
+      <div class="section-heading"><p class="eyebrow">01 / A ideia que nos move</p><div class="heading-grid"><h2>Pequenos produtores.<br><em>Grandes possibilidades.</em></h2><p class="lead">Como tornar a agricultura de precisão mais acessível? Essa pergunta conecta as frentes do LEAF: observar plantas, investigar alternativas de manejo e desenvolver um protótipo de aplicação direcionada.</p></div></div>
+      <div class="project-story"><div class="story-quote"><span class="overline">LEAF, em essência</span><p>Observar melhor.<br>Agir com mais precisão.<br><span>Cultivar conhecimento.</span></p><span class="caption">Pesquisa estudantil · Engenharia e ciências ambientais</span></div><div class="story-body"><h3>Um projeto, diferentes áreas do conhecimento.</h3><p>Desenvolvido no Colégio Militar de Juiz de Fora, o LEAF explora uma solução de cuidado agrícola de baixo custo. A proposta aproxima programação, eletrônica e experimentação das necessidades de pequenos e médios agricultores.</p><p>Uma câmera registra a planta; o software analisa características visuais; um microcontrolador coordena motores e bombas. Em paralelo, a equipe investiga ingredientes de origem vegetal para proteção de culturas.</p><p class="research-note"><span class="status-dot"></span><strong>Pesquisa em desenvolvimento.</strong> O desempenho do protótipo e das formulações segue como objeto de avaliação experimental.</p></div></div>
+
+      <article class="press-preview" aria-labelledby="pressTitle">
+        <div class="press-cover" aria-hidden="true"><span class="press-kicker">LEAF NA IMPRENSA</span><span class="press-monogram">CB<span>Correio Braziliense</span></span><div class="press-rule"></div><span class="press-date">CIÊNCIA NA ESCOLA<br>03 OUT 2025</span></div>
+        <div class="press-content"><div class="press-meta"><span>Eu, Estudante / Educação básica</span><time datetime="2025-10-03">03.10.2025</time></div><h3 id="pressTitle">Desafio Global do Conhecimento reúne 15 colégios militares, em Brasília</h3><p>A reportagem apresenta o LEAF entre os projetos do evento e destaca a proposta dos estudantes do CMJF: combinar análise por câmera e pesquisa de manejo ecológico para atender pequenos e médios agricultores.</p><p class="caption">Por Yandra Martins · Prévia editorial resumida pelo LEAF</p><div class="press-actions"><button class="text-link" type="button" id="newsToggle" aria-expanded="false" aria-controls="newsDetail">Ler sobre o LEAF na matéria <span aria-hidden="true">+</span></button><a class="text-link" href="https://www.correiobraziliense.com.br/euestudante/educacao-basica/2025/10/7261835-desafio-global-do-conhecimento-reune-em-brasilia-15-colegios-militares.html" target="_blank" rel="noopener noreferrer">Abrir notícia original ↗</a></div><div id="newsDetail" class="news-detail" hidden><p>Na seção dedicada ao projeto, Henrique Barreto Costa e Luiz Guilherme Caovilla explicam a observação de plantas e possíveis pragas por imagem. A matéria também descreve a ideia de um aplicativo para consultar formulações conforme a ocorrência e acompanhar cuidados de uso.</p><p class="caption">Resumo do trecho sobre o LEAF; a reportagem completa está disponível no jornal. Esta prévia já faz parte da página e não precisa acessar o site do Correio para aparecer.</p></div></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section technology" id="tecnologia">
+    <div class="container">
+      <div class="section-heading"><p class="eyebrow">02 / Da imagem ao movimento</p><div class="heading-grid"><h2>Um olhar digital.<br><em>Uma ação direcionada.</em></h2><p class="lead">Explore o caminho da informação no protótipo. Cada etapa conecta uma parte da pesquisa à próxima.</p></div></div>
+      <div class="architecture"><div class="architecture-steps" role="group" aria-label="Etapas da tecnologia"><button type="button" class="architecture-step active" data-step="0" aria-pressed="true"><span>01</span><strong>Capturar</strong><small>Câmera / imagem</small><b aria-hidden="true">↗</b></button><button type="button" class="architecture-step" data-step="1" aria-pressed="false"><span>02</span><strong>Analisar</strong><small>Python / OpenCV</small><b aria-hidden="true">↗</b></button><button type="button" class="architecture-step" data-step="2" aria-pressed="false"><span>03</span><strong>Conectar</strong><small>USB serial / ESP32</small><b aria-hidden="true">↗</b></button><button type="button" class="architecture-step" data-step="3" aria-pressed="false"><span>04</span><strong>Direcionar</strong><small>Motores / bombas</small><b aria-hidden="true">↗</b></button></div><div class="architecture-detail" id="architectureDetail" aria-live="polite"><span class="detail-symbol" aria-hidden="true">◎</span><div><p class="overline">01 / A entrada do sistema</p><h3>Tudo começa pela observação.</h3><p>A câmera fornece imagens das plantas. Enquadramento, iluminação e qualidade da captura influenciam as informações disponíveis para o processamento.</p><span class="tech-tag">Câmera → Aplicação Python</span></div></div></div>
+      <div class="tech-note"><span class="label">O que a pesquisa utiliza</span><p>Segmentação de cores em HSV, contornos e regras de classificação com OpenCV e NumPy. A abordagem documentada é heurística; a identificação ainda precisa ser avaliada em diferentes condições de cultivo.</p><a class="text-link" href="https://github.com/henriquebrtocosta/leaf-cmjf/blob/main/README.pt-BR.md" target="_blank" rel="noopener noreferrer">Explorar a documentação ↗</a></div>
+    </div>
+  </section>
+
+  <section class="section assistant-section" id="assistente">
+    <div class="container">
+      <div class="section-heading"><p class="eyebrow light">03 / Assistente agrícola</p><div class="heading-grid"><h2>Da dúvida a um plano.<br><em>Com medidas claras.</em></h2><p class="lead">Consulte receitas de referência com ingredientes e preparo ou calcule a quantidade de um produto a partir da dose da bula. Tudo funciona no seu navegador.</p></div></div>
+      <div class="assistant-shell">
+        <form id="cropForm" class="assistant-form">
+          <div class="form-heading"><span class="form-number">01</span><div><h3>Conte sobre o cultivo</h3><p>Selecione a cultura e a ocorrência observada.</p></div></div>
+          <div class="field-grid">
+            <div class="field"><label for="crop">Cultura <span aria-hidden="true">*</span></label><select id="crop" name="crop" required><option value="">Selecione a cultura</option><option>Alface</option><option>Couve</option><option>Couve-flor</option><option>Tomate</option><option>Morango</option><option>Melancia</option><option>Outra cultura</option></select></div>
+            <div class="field"><label for="pest">Praga ou sintoma <span aria-hidden="true">*</span></label><select id="pest" name="pest" required><option value="">Selecione a ocorrência</option><option>Pulgões</option><option>Cochonilhas</option><option>Tripes</option><option>Lagartas</option><option>Vaquinhas</option><option>Ácaros</option><option>Mosca-branca</option><option>Lesmas ou caracóis</option><option>Manchas nas folhas</option><option>Amarelecimento / murcha</option><option>Não sei identificar</option><option>Outra ocorrência</option></select></div>
+            <div class="field"><label for="stage">Estágio da planta</label><select id="stage" name="stage"><option>Crescimento vegetativo</option><option>Muda / início do crescimento</option><option>Floração</option><option>Frutificação</option><option>Próxima da colheita</option></select></div>
+            <div class="field"><label for="volume">Volume final de calda (L) <span aria-hidden="true">*</span></label><input id="volume" name="volume" type="number" min="0.5" max="100" step="0.5" value="1" required aria-describedby="volumeHelp"><small id="volumeHelp">De 0,5 a 100 L. Quantidade final, após o preparo.</small></div>
+          </div>
+          <div class="form-heading second"><span class="form-number">02</span><div><h3>Escolha como calcular</h3><p>Uma referência técnica ou a bula do seu produto.</p></div></div>
+          <div class="mode-tabs" role="tablist" aria-label="Modo do assistente"><button id="referenceTab" type="button" role="tab" aria-selected="true" aria-controls="referencePanel" tabindex="0" data-mode="reference">Caldas de referência</button><button id="labelTab" type="button" role="tab" aria-selected="false" aria-controls="labelPanel" tabindex="-1" data-mode="label">Produto com bula</button></div>
+          <div id="referencePanel" role="tabpanel" aria-labelledby="referenceTab"><div class="field"><label for="recipe">Receita de referência</label><select id="recipe" name="recipe"><option value="auto">Buscar conforme a ocorrência</option><option value="soap">Calda de sabão neutro</option><option value="onion">Calda de cebola (repelente)</option></select><small>Biblioteca inicial: duas formulações descritas na Circular Técnica 47 da Embrapa (2007), p. 14. A compatibilidade com seu cultivo precisa ser confirmada.</small></div></div>
+          <div id="labelPanel" role="tabpanel" aria-labelledby="labelTab" hidden><fieldset id="labelFields" disabled><legend class="sr-only">Dados transcritos da bula</legend><div class="field"><label for="product">Nome do produto <span aria-hidden="true">*</span></label><input id="product" name="product" maxlength="100" placeholder="Como aparece na embalagem" required></div><div class="field-grid label-dose"><div class="field"><label for="dose">Dose da bula <span aria-hidden="true">*</span></label><input id="dose" name="dose" type="number" min="0.001" max="10000" step="any" placeholder="Ex.: 2" required></div><div class="field"><label for="unit">Unidade da dose</label><select id="unit" name="unit"><option value="mL/L">mL por litro</option><option value="g/L">g por litro</option><option value="mL/100L">mL por 100 litros</option><option value="g/100L">g por 100 litros</option></select></div></div><label class="checkbox"><input id="labelConfirmed" name="labelConfirmed" type="checkbox" required><span>Conferi na bula a dose, a cultura e o alvo. O cálculo não verifica a indicação do produto.</span></label><p class="field-help">Para doses por hectare, é necessário conhecer a calibração e o volume de aplicação; este calculador usa apenas as unidades acima.</p></fieldset></div>
+          <details class="extra-fields"><summary>Acrescentar observações do cultivo <span aria-hidden="true">+</span></summary><div class="field"><label for="symptoms">Sinais observados (opcional)</label><textarea id="symptoms" name="symptoms" rows="3" maxlength="1500" placeholder="Onde aparecem os sinais? Há insetos, manchas ou folhas enroladas?"></textarea></div><div class="field"><label for="location">Região (opcional)</label><input id="location" name="location" maxlength="100" placeholder="Ex.: Zona da Mata, MG"></div></details>
+          <div class="form-actions"><button class="button" type="submit">Gerar receita e plano <span aria-hidden="true">↗</span></button><button class="text-link reset-button" type="reset">Limpar</button></div>
+          <p class="privacy-note">Sem cadastro. Os dados do formulário não são enviados a um servidor.</p>
+        </form>
+        <div class="result-panel"><div class="result-topline"><span><i class="status-dot"></i> SEU PLANO LEAF</span><span>REFERÊNCIA + CÁLCULO</span></div><div id="result" tabindex="-1" aria-label="Resultado do assistente"><div class="empty-result"><span class="empty-plant" aria-hidden="true">⌁</span><p class="overline">Medidas que você entende</p><h3>Uma receita organizada.<br>Um próximo passo claro.</h3><p>Ingredientes, quantidades ajustadas ao volume, modo de preparo e cuidados no mesmo lugar.</p><div class="example-card"><span class="caption">EXEMPLO DO QUE VOCÊ ENCONTRA</span><div><strong>1 L</strong><span>volume final</span><i aria-hidden="true">→</i><strong>10 g</strong><span>sabão neutro</span></div><small>Proporção da referência Embrapa para a calda de sabão. A escolha depende da ocorrência e do cultivo.</small></div><button type="button" class="text-link" id="loadExample">Experimentar com couve e pulgões ↗</button></div></div></div>
+      </div>
+      <p class="assistant-caption">As caldas são referências bibliográficas, não as formulações experimentais próprias do LEAF nem um receituário agronômico. A origem natural não garante ausência de toxicidade. Confirme a identificação e a adequação com assistência técnica antes do uso.</p>
+      <noscript><p class="notice">Ative o JavaScript para calcular as medidas. A apresentação do projeto e a prévia da notícia continuam disponíveis sem ele.</p></noscript>
+    </div>
+  </section>
+
+  <section class="section" id="pesquisa">
+    <div class="container">
+      <div class="section-heading"><p class="eyebrow">04 / Ciência aberta, pesquisa em movimento</p><div class="heading-grid"><h2>O conhecimento cresce<br><em>quando é compartilhado.</em></h2><p class="lead">O repositório reúne artigos, roteiros, materiais de apresentação e a documentação do projeto. Conheça as perguntas que orientam o trabalho.</p></div></div>
+      <div class="research-layout"><div class="research-topics"><article><span>01 / VISÃO</span><h3>O que a imagem consegue mostrar?</h3><p>Investigar classificação visual e avaliar como iluminação, enquadramento e características das plantas influenciam os resultados.</p></article><article><span>02 / AUTOMAÇÃO</span><h3>Como tornar a aplicação mais seletiva?</h3><p>Estudar comunicação serial, posicionamento do mecanismo e controle das bombas, medindo repetibilidade e consumo de líquido.</p></article><article><span>03 / MANEJO</span><h3>Como avaliar alternativas de origem vegetal?</h3><p>Investigar ingredientes como nim, própolis, alho, cebola e óleo de cravo, com registro de eficácia, fitotoxicidade e efeitos sobre organismos não alvo.</p></article></div><aside class="library"><span class="overline">Caderno aberto</span><h3>Explore os<br>materiais do LEAF.</h3><a href="https://github.com/henriquebrtocosta/leaf-cmjf/blob/main/README.pt-BR.md" target="_blank" rel="noopener noreferrer"><span>Documentação em português<small>Objetivos, arquitetura e desenvolvimento</small></span>↗</a><a href="https://github.com/henriquebrtocosta/leaf-cmjf/tree/main/Files/Artigos" target="_blank" rel="noopener noreferrer"><span>Artigos e pesquisa<small>Documentos produzidos pela equipe</small></span>↗</a><a href="https://github.com/henriquebrtocosta/leaf-cmjf/tree/main/Files/Visuais%20-%20Banner%2C%20folder" target="_blank" rel="noopener noreferrer"><span>Banners e materiais visuais<small>Comunicação científica do projeto</small></span>↗</a><a href="https://github.com/henriquebrtocosta/leaf-cmjf" target="_blank" rel="noopener noreferrer"><span>Repositório completo<small>Acesse os arquivos e contribua</small></span>↗</a><p class="caption">Código aberto · Licença MIT<br>Resultados quantitativos dependem de dados experimentais documentados.</p></aside></div>
+    </div>
+  </section>
+
+  <section class="section team-section" id="equipe"><div class="container"><div class="section-heading"><p class="eyebrow">05 / As pessoas por trás da pesquisa</p><div class="heading-grid"><h2>Curiosidade em comum.<br><em>Conhecimento em construção.</em></h2><p class="lead">Uma iniciativa estudantil do Colégio Militar de Juiz de Fora, desenvolvida com orientação e colaboração interdisciplinar.</p></div></div><div class="team"><article><div class="initials" aria-hidden="true">HC</div><span class="overline">Estudante pesquisador</span><h3>Henrique Barreto Costa</h3></article><article><div class="initials" aria-hidden="true">LC</div><span class="overline">Estudante pesquisador</span><h3>Luiz Guilherme Caovilla</h3></article><article><div class="initials" aria-hidden="true">GM</div><span class="overline">Professor orientador</span><h3>Guilherme Marins Maciel</h3></article></div></div></section>
+
+  <section class="section faq-section"><div class="container faq-layout"><div><p class="eyebrow">Antes de começar</p><h2>Boas perguntas<br><em>fazem parte.</em></h2></div><div class="faq"><details><summary>O assistente fornece receitas com medidas?</summary><p>Sim. A biblioteca inicial calcula duas caldas documentadas pela Embrapa, com quantidades proporcionais ao volume escolhido. Você também pode transcrever a dose de um produto comercial para calcular a quantidade necessária. Cada resultado explica a origem e os limites do cálculo.</p></details><details><summary>As receitas são fórmulas próprias do LEAF?</summary><p>As receitas do assistente são referências da Circular Técnica 47 da Embrapa Hortaliças, de 2007, página 14. As formulações investigadas pela equipe do LEAF são uma frente de pesquisa separada e ainda precisam de validação.</p></details><details><summary>O site analisa fotos ou identifica pragas automaticamente?</summary><p>O assistente usa as informações selecionadas no formulário. O processamento de imagens faz parte do protótipo físico documentado e não está conectado a esta página. Na seção de tecnologia, o desenho mostra o conceito do sistema.</p></details><details><summary>Por que algumas ocorrências não têm uma calda indicada?</summary><p>A biblioteca relaciona apenas os alvos mencionados na fonte. Manchas, murcha e espécies ainda não identificadas exigem confirmação da causa. Nesses casos, o assistente oferece um roteiro de observação e permite calcular a dose de um produto cuja indicação você já conferiu na bula.</p></details><details><summary>Posso salvar e usar sem internet?</summary><p>O cálculo e a prévia da notícia não consultam serviços externos. Você pode copiar o plano, baixá-lo como texto ou usar a impressão do navegador para salvar um PDF. Uma cópia local dos arquivos do site também funciona sem internet; links para documentos, lojas e a notícia completa precisam de conexão.</p></details></div></div></section>
 </main>
-<footer class="footer"><div class="wrap footer-inner"><div><a class="brand" href="#inicio"><span class="brand-mark">⌁</span><span>LEAF</span></a><p>Low-Cost Ecological AgroCare Framework</p></div><div class="footer-links"><a href="#projeto">Projeto</a><a href="#ferramenta">Assistente</a><a href="https://github.com/henriquebrtocosta/LEAF" target="_blank" rel="noopener">GitHub ↗</a></div><p>Protótipo educacional • Não substitui assistência agronômica</p></div></footer>
-<div class="toast" id="toast" role="status"></div>
-<script>
-const $ = s => document.querySelector(s);
-const enc = s => encodeURIComponent(s);
-const shopSearch = (store, query) => {
- const q=enc(query);
- const urls={
-  "Mercado Livre":"https://lista.mercadolivre.com.br/"+q,
-  "Amazon Brasil":"https://www.amazon.com.br/s?k="+q,
-  "Google Shopping":"https://www.google.com/search?tbm=shop&q="+q,
-  "Shopee":"https://shopee.com.br/search?keyword="+q,
-  "Lojas agropecuárias":"https://www.google.com/search?q="+q+"+loja+agropecuaria+Brasil"
- };
- return urls[store];
-};
-const safeText = s => String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const cropForm=$("#cropForm"), result=$("#result");
-function makePlan(data){
- const uncertain=data.pest==="Não sei identificar"||data.pest==="Outra ocorrência"||data.pest==="Manchas nas folhas"||data.pest==="Amarelecimento / murcha";
- const general=[
-  "Fotografe a planta inteira e os dois lados das folhas, com boa luz, incluindo uma referência de escala.",
-  "Inspecione várias plantas e anote quantas apresentam sinais; verifique se o padrão está se espalhando.",
-  "Retire e isole material muito afetado apenas quando isso não disseminar a ocorrência; higienize ferramentas.",
-  "Evite aplicar produtos por tentativa. Confirme a causa e a indicação para a cultura antes de qualquer tratamento."
- ];
- if(data.pest==="Pulgões") general.unshift("Observe colônias, folhas novas enroladas e presença de formigas; registre se há joaninhas ou outros inimigos naturais.");
- if(data.pest==="Lagartas") general.unshift("Procure lagartas, ovos e excrementos, principalmente na face inferior das folhas; fotografe o organismo encontrado.");
- if(data.pest==="Ácaros") general.unshift("Observe pontilhado claro, bronzeamento e teias finas; confirme com lupa, pois sintomas semelhantes têm outras causas.");
- if(data.pest==="Mosca-branca") general.unshift("Ao movimentar a planta, observe pequenos insetos brancos voando e ninfas na face inferior das folhas.");
- if(data.pest==="Lesmas ou caracóis") general.unshift("Procure danos irregulares, trilhas de muco e atividade ao entardecer ou em locais úmidos.");
- const products=["nim (produto comercial identificado e regularizado, se aplicável)","própolis","alho","cebola","pimenta","óleo de cravo","sabão potássico"];
- const storeNames=["Mercado Livre","Amazon Brasil","Google Shopping","Shopee","Lojas agropecuárias"];
- const itemMarkup=products.map(item=>{
-  const links=storeNames.map(st=>`<a href="${shopSearch(st,item)}" target="_blank" rel="noopener">${st}</a>`).join("");
-  return `<div class="shop-item"><div><strong>${safeText(item)}</strong><span>Busca de ofertas — confirme composição, rótulo, vendedor e frete.</span></div><div class="sources">${links}</div></div>`;
- }).join("");
- return `<div class="pill">FICHA DE AVALIAÇÃO • LEAF</div><h3>Plano preliminar para a ocorrência</h3><p class="tiny">Gerado em ${new Date().toLocaleDateString("pt-BR")}. Use como roteiro de observação, não como diagnóstico definitivo.</p>
- <div class="result-block"><strong>Resumo informado</strong><ul><li><b>Cultura:</b> ${safeText(data.crop)}</li><li><b>Suspeita:</b> ${safeText(data.pest)}</li><li><b>Estágio:</b> ${safeText(data.stage)}</li><li><b>Área afetada:</b> ${safeText(data.scale)}</li><li><b>Início:</b> ${safeText(data.when)}</li>${data.location?`<li><b>Região:</b> ${safeText(data.location)}</li>`:""}${data.symptoms?`<li><b>Sinais:</b> ${safeText(data.symptoms)}</li>`:""}${data.notes?`<li><b>Observações:</b> ${safeText(data.notes)}</li>`:""}</ul></div>
- <div class="result-block"><strong>Próximos passos recomendados</strong><ul>${general.map(x=>`<li>${safeText(x)}</li>`).join("")}</ul>${uncertain?'<p class="notice">Como a ocorrência pode ter várias causas, priorize a identificação antes de escolher um método de controle.</p>':""}</div>
- <div class="result-block"><strong>Sobre uma receita específica</strong><p>Não é seguro definir uma receita, concentração ou mistura apenas com a cultura e a praga suspeita. Ingredientes citados nos materiais do LEAF estão em investigação; isso não comprova eficácia, dose segura ou autorização de uso para esta situação. Peça confirmação a um engenheiro agrônomo ou à assistência técnica (por exemplo, Emater local) e use somente produtos com indicação adequada no rótulo.</p><p class="tiny">Se já houve aplicação, registre o produto, dose indicada no rótulo, data e condições. Não misture produtos nem improvise concentrações.</p></div>
- <div class="result-block"><strong>Pesquisa de preços de ingredientes</strong><p class="tiny">Atalhos de busca — não são cotações verificadas nem uma recomendação para comprar ou misturar esses itens. Compare preço por unidade/volume, frete, composição, vendedor e indicação legal.</p><div class="shop-list">${itemMarkup}</div></div>
- <div class="result-block"><strong>Checklist antes de agir</strong><ul><li>Identificação confirmada por fonte confiável.</li><li>Verificação de manejo cultural, barreiras físicas e controle biológico aplicável.</li><li>Consulta ao rótulo, à cultura e ao alvo indicados e às exigências locais.</li><li>Proteção de pessoas, animais, água e organismos benéficos.</li><li>Registro do resultado e monitoramento posterior.</li></ul></div>
- <div class="form-actions no-print"><button class="btn btn-primary" onclick="window.print()">Imprimir / salvar PDF ↗</button><button class="btn btn-light" id="copySummary">Copiar resumo</button></div>
- <p class="tiny print-only">LEAF • Low-Cost Ecological AgroCare Framework — ficha educacional. Não substitui diagnóstico profissional, bula/rótulo ou orientação agronômica.</p>`;
-}
-cropForm.addEventListener("submit",e=>{
- e.preventDefault();
- const data={crop:$("#crop").value,pest:$("#pest").value,stage:$("#stage").value,scale:$("#scale").value,location:$("#location").value.trim(),when:$("#when").value,symptoms:$("#symptoms").value.trim(),notes:$("#notes").value.trim()};
- result.innerHTML=makePlan(data);
- result.querySelector("#copySummary").addEventListener("click",()=>{
-  const summary=`LEAF — Ficha de avaliação\nCultura: ${data.crop}\nSuspeita: ${data.pest}\nEstágio: ${data.stage}\nÁrea afetada: ${data.scale}\nInício: ${data.when}\nRegião: ${data.location||"Não informada"}\nSinais: ${data.symptoms||"Não informados"}\nObservações: ${data.notes||"Não informadas"}\n\nPlano: fotografar e monitorar a ocorrência; confirmar a identificação antes de qualquer aplicação; procurar assistência técnica. Não há receita ou dose validada gerada por esta ferramenta.`;
-  navigator.clipboard?.writeText(summary).then(()=>toast("Resumo copiado."),()=>toast("Não foi possível copiar automaticamente; use imprimir/salvar PDF."));
- });
- result.scrollIntoView({behavior:"smooth",block:"start"});
-});
-cropForm.addEventListener("reset",()=>setTimeout(()=>{result.innerHTML='<div class="empty-state"><div><div class="empty-icon">🌱</div><h3>Sua ficha aparecerá aqui</h3><p>Preencha a ocorrência para organizar observações, medidas preventivas e links de pesquisa de insumos.</p></div></div>';},0));
-function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500)}
-const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("reveal");observer.unobserve(e.target)}}),{threshold:.08});
-document.querySelectorAll(".card,.step,.research-card,.time-card").forEach(el=>observer.observe(el));
-</script>
+<footer><div class="container footer-main"><div><a class="brand" href="#inicio"><svg viewBox="0 0 40 44" aria-hidden="true"><path d="M6 35C1 14 19 4 35 4c0 18-7 33-29 31Z" fill="currentColor"/><path d="m6 40 23-27" stroke="#163c2d" stroke-width="2"/></svg><span>LEAF</span></a><p>Ciência que cultiva possibilidades.</p></div><div><span class="overline">Explore</span><a href="#projeto">O projeto</a><a href="#assistente">Assistente agrícola</a><a href="#equipe">Nossa equipe</a></div><div><span class="overline">Conhecimento aberto</span><a href="https://github.com/henriquebrtocosta/leaf-cmjf" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://www.infoteca.cnptia.embrapa.br/bitstream/doc/781607/1/ct47.pdf#page=14" target="_blank" rel="noopener noreferrer">Fonte das receitas · Embrapa ↗</a><a href="#pressTitle">LEAF na imprensa</a></div></div><div class="container footer-bottom"><span>Low-Cost Ecological AgroCare Framework</span><span>CMJF · Pesquisa e desenvolvimento experimental</span></div></footer>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
