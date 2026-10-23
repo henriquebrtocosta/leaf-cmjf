@@ -215,8 +215,6 @@ leaf-cmjf/
 │   ├── js/main.js
 │   └── images/
 ├── docs/
-│   ├── projeto.md
-│   ├── project.en.md
 │   ├── formulacao.md
 │   ├── site.md
 │   └── pesquisa/
@@ -301,7 +299,7 @@ The software license does not grant regulatory approval for agricultural formula
 - 💻 [GitHub Repository](https://github.com/henriquebrtocosta/leaf-cmjf)
 - 📁 [Project Materials](docs/pesquisa/)
 - 🐛 [Issues and Suggestions](https://github.com/henriquebrtocosta/leaf-cmjf/issues)
-- 🇧🇷 [Documentação em Português](projeto.md)
+- 🇧🇷 [README em Português](README.md)
 
 ---
 
