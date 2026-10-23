@@ -1282,11 +1282,11 @@
       english ? 'Switch website language to Portuguese' : 'Mudar idioma do site para inglês'
     );
     document
-      .querySelectorAll('a[href*="/docs/projeto.md"], a[href*="/docs/project.en.md"]')
+      .querySelectorAll('a[href*="/README.md"], a[href*="/README.en.md"]')
       .forEach((link) => {
         link.href = link.href.replace(
-          /docs\/(projeto|project\.en)\.md/,
-          english ? 'docs/project.en.md' : 'docs/projeto.md'
+          /README(?:\.en)?\.md/,
+          english ? 'README.en.md' : 'README.md'
         );
       });
   }
