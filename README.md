@@ -215,8 +215,6 @@ leaf-cmjf/
 │   ├── js/main.js
 │   └── images/
 ├── docs/
-│   ├── projeto.md
-│   ├── project.en.md
 │   ├── formulacao.md
 │   ├── site.md
 │   └── pesquisa/
@@ -301,7 +299,7 @@ A licença de software não concede autorização regulatória para formulaçõe
 - 💻 [Repositório no GitHub](https://github.com/henriquebrtocosta/leaf-cmjf)
 - 📁 [Materiais do Projeto](docs/pesquisa/)
 - 🐛 [Issues e Sugestões](https://github.com/henriquebrtocosta/leaf-cmjf/issues)
-- 🇺🇸 [English Documentation](project.en.md)
+- 🇺🇸 [English README](README.en.md)
 
 ---
 
