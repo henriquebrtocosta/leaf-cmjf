@@ -1,4 +1,3 @@
-
 <div align="center">
 
 # 🌱 LEAF
@@ -12,12 +11,12 @@ Um projeto de pesquisa estudantil que combina **visão computacional, sistemas e
 [![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![OpenCV](https://img.shields.io/badge/OpenCV-Computer_Vision-5C3EE8?logo=opencv&logoColor=white)](https://opencv.org/)
 [![ESP32](https://img.shields.io/badge/ESP32-Embedded_Systems-E7352C?logo=espressif&logoColor=white)](https://www.espressif.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../LICENSE)
 [![Status](https://img.shields.io/badge/Status-Em_Desenvolvimento-orange)](#-status-do-projeto)
 
-**[🌐 Site Oficial](https://henriquebrtocosta.github.io/leaf-cmjf/)** · **[📁 Arquivos do Projeto](Files/)** · **[💬 Contribuir](https://github.com/henriquebrtocosta/leaf-cmjf/issues)**
+**[🌐 Site Oficial](https://henriquebrtocosta.github.io/leaf-cmjf/)** · **[📁 Arquivos do Projeto](pesquisa/)** · **[💬 Contribuir](https://github.com/henriquebrtocosta/leaf-cmjf/issues)**
 
-**🌍 Idiomas:** [English](README.md) | Português (Brasil)
+**🌍 Idiomas:** [English](project.en.md) | Português (Brasil)
 
 </div>
 
@@ -48,16 +47,16 @@ O desenvolvimento do LEAF é orientado por cinco objetivos principais:
 
 O protótipo e sua documentação técnica descrevem os seguintes componentes:
 
-| Componente | Descrição |
-|---|---|
-| 📷 Visão Computacional | Captura e processamento de imagens utilizando Python e OpenCV. |
-| 🌿 Identificação de Culturas | Regras experimentais de classificação visual para determinadas culturas agrícolas. |
-| 🔍 Indicação de Pragas | Detecção de padrões visuais potencialmente associados à presença de pragas. |
-| ⚙️ Controle Embarcado | Arquitetura baseada em ESP32 para controle de motores e bombas de pulverização. |
-| 🔌 Comunicação Serial | Comunicação entre a aplicação Python e o microcontrolador por meio de conexão USB serial. |
-| 💧 Pulverização Direcionada | Mecanismo experimental destinado à aplicação mais seletiva de soluções agrícolas. |
-| 🌱 Pesquisa Ecológica | Investigação de ingredientes de origem natural para possíveis formulações agrícolas. |
-| 🌐 Site do Projeto | Plataforma pública de apresentação dos objetivos e das atividades de pesquisa. |
+| Componente                   | Descrição                                                                                 |
+| ---------------------------- | ----------------------------------------------------------------------------------------- |
+| 📷 Visão Computacional       | Captura e processamento de imagens utilizando Python e OpenCV.                            |
+| 🌿 Identificação de Culturas | Regras experimentais de classificação visual para determinadas culturas agrícolas.        |
+| 🔍 Indicação de Pragas       | Detecção de padrões visuais potencialmente associados à presença de pragas.               |
+| ⚙️ Controle Embarcado        | Arquitetura baseada em ESP32 para controle de motores e bombas de pulverização.           |
+| 🔌 Comunicação Serial        | Comunicação entre a aplicação Python e o microcontrolador por meio de conexão USB serial. |
+| 💧 Pulverização Direcionada  | Mecanismo experimental destinado à aplicação mais seletiva de soluções agrícolas.         |
+| 🌱 Pesquisa Ecológica        | Investigação de ingredientes de origem natural para possíveis formulações agrícolas.      |
+| 🌐 Site do Projeto           | Plataforma pública de apresentação dos objetivos e das atividades de pesquisa.            |
 
 ### Abordagem de Visão Computacional
 
@@ -102,16 +101,16 @@ Esse fluxo representa a integração investigada pelo projeto. Sua confiabilidad
 
 ### Software
 
-| Tecnologia | Finalidade |
-|---|---|
-| Python 3 | Aplicação principal e lógica de controle |
-| OpenCV | Captura e processamento de imagens |
-| NumPy | Operações numéricas e manipulação de matrizes de imagens |
-| Matplotlib | Visualização de dados e imagens |
-| PySerial | Comunicação serial com o ESP32 |
-| pyttsx3 | Funcionalidades de síntese de voz |
-| keyboard | Gerenciamento de entradas pelo teclado |
-| HTML, CSS e JavaScript | Desenvolvimento do site público do projeto |
+| Tecnologia             | Finalidade                                               |
+| ---------------------- | -------------------------------------------------------- |
+| Python 3               | Aplicação principal e lógica de controle                 |
+| OpenCV                 | Captura e processamento de imagens                       |
+| NumPy                  | Operações numéricas e manipulação de matrizes de imagens |
+| Matplotlib             | Visualização de dados e imagens                          |
+| PySerial               | Comunicação serial com o ESP32                           |
+| pyttsx3                | Funcionalidades de síntese de voz                        |
+| keyboard               | Gerenciamento de entradas pelo teclado                   |
+| HTML, CSS e JavaScript | Desenvolvimento do site público do projeto               |
 
 ### Hardware
 
@@ -127,117 +126,9 @@ A arquitetura experimental inclui:
 
 Os detalhes de fiação, alimentação elétrica e configuração dos componentes devem ser verificados antes da operação do protótipo.
 
-## 📂 Estrutura do Repositório
+## Site e organização
 
-O repositório público contém o site, os documentos, a licença e os materiais complementares do projeto.
-
-```text
-leaf-cmjf/
-├── Files/              # Materiais complementares do projeto
-├── index.html          # Site público do LEAF
-├── README.md           # Documentação principal (inglês)
-├── README.pt-BR.md     # Documentação em português
-├── LICENSE             # Licença MIT
-└── .gitignore
-```
-
-A documentação técnica também faz referência aos seguintes arquivos do protótipo:
-
-| Arquivo | Finalidade |
-|---|---|
-| `leaf.py` | Aplicação Python principal |
-| `funcao_identific.py` | Análise de imagens e classificação experimental |
-| `executar.bat` | Inicializador da aplicação no Windows |
-| `firmware_usb.ino` | Arquivo principal do firmware ESP32 |
-| `controle_motor.ino` | Controle de motores |
-| `comunicacao_serial.ino` | Gerenciamento da comunicação serial |
-| `controle_bombas.ino` | Controle das bombas |
-
-> [!NOTE]
-> Esses arquivos são descritos na documentação técnica, mas suas localizações exatas no repositório público atual não foram completamente verificadas. Localize os arquivos correspondentes antes de seguir as instruções de execução.
-
-## 🚀 Primeiros Passos
-
-### Pré-requisitos
-
-Para executar o protótipo Python, os requisitos documentados incluem:
-
-- Python 3
-- Câmera compatível
-- Windows para utilizar o inicializador `.bat`
-- ESP32 e hardware compatível para a integração física
-- Arduino IDE para configurar e carregar o firmware
-
-O site do projeto pode ser visualizado independentemente do protótipo físico.
-
-### 1. Clonar o Repositório
-
-```bash
-git clone https://github.com/henriquebrtocosta/leaf-cmjf.git
-cd leaf-cmjf
-```
-
-### 2. Localizar os Arquivos da Aplicação
-
-Localize o diretório que contém a aplicação Python principal (`leaf.py`) e seus módulos associados.
-
-Os próximos comandos devem ser executados a partir desse diretório.
-
-### 3. Criar um Ambiente Virtual
-
-No Windows:
-
-```powershell
-python -m venv .venv
-```
-
-### 4. Instalar as Dependências
-
-Instale as bibliotecas Python utilizadas pelo protótipo documentado:
-
-```powershell
-.venv\Scripts\python.exe -m pip install opencv-python numpy keyboard pyserial pyttsx3 matplotlib
-```
-
-Essas dependências ainda não estão organizadas em um ambiente de instalação verificado com versões fixadas.
-
-### 5. Configurar a Aplicação
-
-Antes de executar o programa, verifique as configurações da câmera e da comunicação serial.
-
-A documentação existente apresenta os seguintes valores:
-
-| Configuração | Valor Documentado | Descrição |
-|---|---|---|
-| Porta serial | `COM8` | Porta atribuída ao ESP32 |
-| Taxa de transmissão | `9600` baud | Velocidade da comunicação serial |
-| Índice da câmera | `1` | Dispositivo de câmera selecionado pelo OpenCV |
-
-Essas configurações podem precisar de alterações dependendo do computador e dos dispositivos conectados.
-
-### 6. Executar a Aplicação Python
-
-No diretório que contém `leaf.py`, execute:
-
-```powershell
-.venv\Scripts\python.exe leaf.py
-```
-
-Se o arquivo `executar.bat` estiver disponível e seus caminhos corresponderem à estrutura de diretórios local, ele também poderá ser utilizado como inicializador no Windows.
-
-### 7. Configurar o Firmware ESP32
-
-Para realizar a integração com o hardware:
-
-1. Localize o diretório do firmware `firmware_usb`.
-2. Abra `firmware_usb.ino` utilizando a Arduino IDE.
-3. Mantenha os demais arquivos `.ino` no mesmo diretório do projeto.
-4. Selecione a placa ESP32 e a porta de comunicação corretas.
-5. Verifique as configurações do firmware e as conexões elétricas.
-6. Realize testes em condições controladas, inicialmente sem formulações agrícolas.
-
-> [!CAUTION]
-> Não conecte motores ou bombas diretamente aos pinos do microcontrolador sem os drivers e as proteções elétricas adequadas. Verifique a alimentação, a fiação e os procedimentos de desligamento de emergência antes de operar qualquer equipamento físico.
+Consulte o [guia do repositório](../README.md) para a estrutura atual e o [guia do site](site.md) para executar, testar e manter o código. Os artigos, roteiros e materiais do protótipo estão em [pesquisa/](pesquisa/).
 
 ## 🌱 Pesquisa em Proteção Ecológica de Culturas
 
@@ -287,14 +178,14 @@ Um dos objetivos centrais do LEAF é fornecer uma base para experimentação cie
 
 As futuras avaliações devem considerar:
 
-| Área de Pesquisa | Avaliações Sugeridas |
-|---|---|
-| Visão Computacional | Acurácia, precisão, revocação e robustez diante de mudanças ambientais |
-| Identificação de Culturas | Desempenho com diferentes espécies e estágios de crescimento |
-| Automação | Confiabilidade do controle, repetibilidade do posicionamento e tempo de resposta |
-| Pulverização | Consistência de aplicação, consumo de líquido e precisão de direcionamento |
-| Formulações Agrícolas | Eficácia, fitotoxicidade e efeitos sobre organismos não alvo |
-| Acessibilidade | Custos dos componentes, necessidades de manutenção e reprodutibilidade |
+| Área de Pesquisa          | Avaliações Sugeridas                                                             |
+| ------------------------- | -------------------------------------------------------------------------------- |
+| Visão Computacional       | Acurácia, precisão, revocação e robustez diante de mudanças ambientais           |
+| Identificação de Culturas | Desempenho com diferentes espécies e estágios de crescimento                     |
+| Automação                 | Confiabilidade do controle, repetibilidade do posicionamento e tempo de resposta |
+| Pulverização              | Consistência de aplicação, consumo de líquido e precisão de direcionamento       |
+| Formulações Agrícolas     | Eficácia, fitotoxicidade e efeitos sobre organismos não alvo                     |
+| Acessibilidade            | Custos dos componentes, necessidades de manutenção e reprodutibilidade           |
 
 Nenhuma alegação quantitativa de desempenho deve ser considerada comprovada sem dados experimentais que a sustentem.
 
@@ -337,7 +228,7 @@ O projeto não garante precisão na identificação de pragas, eficácia na prot
 
 Este repositório é distribuído sob a **Licença MIT**.
 
-Consulte o arquivo [LICENSE](LICENSE) para conhecer todos os termos da licença.
+Consulte o arquivo [LICENSE](../LICENSE) para conhecer todos os termos da licença.
 
 A licença de software não concede autorização regulatória para formulações agrícolas, aplicações de defensivos ou operação de equipamentos físicos.
 
@@ -345,9 +236,9 @@ A licença de software não concede autorização regulatória para formulaçõe
 
 - 🌐 [Site Oficial do Projeto](https://henriquebrtocosta.github.io/leaf-cmjf/)
 - 💻 [Repositório no GitHub](https://github.com/henriquebrtocosta/leaf-cmjf)
-- 📁 [Materiais do Projeto](Files/)
+- 📁 [Materiais do Projeto](pesquisa/)
 - 🐛 [Issues e Sugestões](https://github.com/henriquebrtocosta/leaf-cmjf/issues)
-- 🇺🇸 [English Documentation](README.md)
+- 🇺🇸 [English Documentation](project.en.md)
 
 ---
 
@@ -357,7 +248,7 @@ A licença de software não concede autorização regulatória para formulaçõe
 
 **LEAF — Low-Cost Ecological AgroCare Framework**
 
-*Explorando a inovação acessível por meio da ciência, engenharia e responsabilidade ambiental.*
+_Explorando a inovação acessível por meio da ciência, engenharia e responsabilidade ambiental._
 
 **[Voltar ao Início ↑](#-leaf)**
 

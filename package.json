@@ -1,0 +1,14 @@
+{
+  "name": "leaf-cmjf",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site estático do projeto LEAF do Colégio Militar de Juiz de Fora",
+  "scripts": {
+    "test": "node --test tests/assistant.test.cjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
+}
