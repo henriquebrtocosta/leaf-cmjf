@@ -1245,9 +1245,34 @@
     printDetails = [];
   });
 
+  const teamBioTranslations = [
+    "Henrique Barreto Costa is from Juiz de Fora, Minas Gerais, Brazil, and studies at the Military College of Juiz de Fora, where he ranked seventh in the admission examination. His interests include exact sciences, robotics, and technology applied to sustainability. Throughout his school career, he has taken part in science fairs and academic competitions, including the CMJF Science, Art and Culture Fair and the Global Knowledge Challenge. His main achievements include runner-up in the regional Rescue Robotics competition, first place at the college science fair, and third place in the Agricultural, Human, and Social Sciences category of the Global Knowledge Challenge. He has also earned medals in OBMEP, Rescue Robotics, and Theoretical Robotics; silver in the Brazilian Science, Innovation and Technology Olympiad; gold in the International Ocean Olympiad; and national and regional medals in the International Mathematics Olympiad Without Borders. He participates in scientific initiation, research, and innovation projects at the college.",
+    "Luiz Guilherme Caovilla is from Juiz de Fora, Minas Gerais, Brazil, and studies at the Military College of Juiz de Fora. He is interested in pursuing a career in exact sciences and engineering. His academic experience includes participation in editions of the Global Knowledge Challenge, the CMJF Science, Art and Culture Fair, and regional and state Rescue Robotics competitions. His main achievements include first place overall at the CMJF science fair in the Multidisciplinary category; first place in the Science category at another edition of the fair; third place in that category in an earlier edition; and second place in the regional Brazilian Rescue Robotics Olympiad. He has also received State Merit in the Brazilian Theoretical Robotics Olympiad. His work highlights participation in scientific activities and school competitions, with interests in applied mathematics, science, and robotics.",
+    "Guilherme Marins Maciel holds a PhD in Electrical Engineering from the Federal University of Juiz de Fora (UFJF), a degree in Electrical Engineering with an emphasis on Robotics and Automation from the same university, and a teaching degree in Mathematics from Claretiano. His academic and professional experience includes optimization, machine learning, educational and assistive robotics, and basic mathematics. He participated in UFJF's Intelligent Robotics Group (GRIn) and Bio-Inspired Optimization and Heuristics Group (GOHB), and worked on machine-learning innovation projects at INESC P&D Brasil and the startup RoboticTech. He is a military officer and teacher at the Military College of Juiz de Fora, where he teaches robotics and develops scientific initiation projects. He also mentors students in projects that take part in science fairs and technology competitions, including national events.",
+    "Phelippe Nathaniel Ribeiro Oliveira is from Juiz de Fora, Minas Gerais, Brazil. He holds a degree in Languages, a master's degree in Linguistics from the Federal University of Juiz de Fora (UFJF), and a PhD in Linguistic Studies from the Federal University of Minas Gerais (UFMG), including a doctoral research period at York University in Toronto, Canada. He works as a teacher in basic, technical, and technological education and teaches English at the Military College of Juiz de Fora, where he also performs advisory and pedagogical coordination duties. His work focuses on encouraging research and scientific initiation, interdisciplinary research methods, and mentoring extracurricular projects, science fairs, knowledge olympiads, and international language certification programs. His recognitions include first place in the public competition for an EBTT position, top rankings in master's and doctoral admissions, an internal UFMG nomination for the CAPES award for best thesis, the Military College Friend diploma, the Outstanding Teacher award, and the Brazilian Army Medal. He continues to work in teaching, pedagogical coordination, and the promotion of student research."
+  ];
+  function refreshBioButtons() {
+    const english = LEAF.getLanguage() === 'en';
+    document.querySelectorAll('.team-card .bio-toggle').forEach((button) => {
+      const card = button.closest('.team-card');
+      const expanded = card.classList.contains('is-expanded');
+      button.setAttribute('aria-expanded', String(expanded));
+      const label = english
+        ? (expanded ? 'Show less' : 'Read biography')
+        : (expanded ? 'Mostrar menos' : 'Ler biografia');
+      const arrow = button.querySelector('span');
+      button.firstChild.textContent = label + ' ';
+      if (arrow) arrow.textContent = '↗';
+    });
+  }
   const originalText = new WeakMap();
   const originalAttributes = new WeakMap();
   function translatePage() {
+    const english = LEAF.getLanguage() === 'en';
+    document.querySelectorAll('.team-card .team-bio').forEach((bio, index) => {
+      if (!bio.dataset.originalBio) bio.dataset.originalBio = bio.textContent;
+      bio.textContent = english ? (teamBioTranslations[index] || bio.dataset.originalBio) : bio.dataset.originalBio;
+    });
     const walker = document.createTreeWalker(document.documentElement, NodeFilter.SHOW_TEXT);
     while (walker.nextNode()) {
       const node = walker.currentNode;
@@ -1284,7 +1309,6 @@
         for (const [name, source] of Object.entries(originalAttributes.get(element)))
           element.setAttribute(name, LEAF.translate(source));
       });
-    const english = LEAF.getLanguage() === 'en';
     refreshBioButtons();
     document.documentElement.lang = english ? 'en' : 'pt-BR';
     $('#languageToggle').textContent = english ? 'Português' : 'English';
@@ -1315,8 +1339,8 @@
     button.addEventListener('click', () => {
       const expanded = card.classList.toggle('is-expanded');
       button.setAttribute('aria-expanded', String(expanded));
-      button.firstChild.textContent = (expanded ? 'Mostrar menos' : 'Ler biografia') + ' ';
-      if (arrow) arrow.textContent = expanded ? '↗' : '↗';
+      refreshBioButtons();
+      if (arrow) arrow.textContent = '↗';
       if (expanded) {
         bio.style.height = `${bio.getBoundingClientRect().height}px`;
         requestAnimationFrame(() => {
@@ -1345,7 +1369,8 @@
         doseConfirmed: !!currentPlan.dilution,
       });
       render(currentPlan, false);
-    } else translatePage();
+    }
+    translatePage();
     $('#languageStatus').textContent =
       LEAF.getLanguage() === 'en'
         ? 'Language changed to English.'
