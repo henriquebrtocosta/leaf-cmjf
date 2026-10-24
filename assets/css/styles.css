@@ -1518,20 +1518,41 @@ textarea:focus {
   box-shadow: 0 12px 30px #213c2c12;
 }
 .team .team-bio {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  display: block;
+  max-height: 5.4em;
   overflow: hidden;
   margin-top: 12px;
   font-size: 14px;
   line-height: 1.8;
   color: var(--muted);
+  opacity: .88;
+  transition: max-height .72s cubic-bezier(.22, 1, .36, 1), opacity .32s ease;
+  will-change: max-height;
 }
 .team article:hover .team-bio,
 .team article:focus-within .team-bio,
 .team article.is-expanded .team-bio {
-  display: block;
-  overflow: visible;
+  max-height: 1200px;
+  opacity: 1;
+}
+.team .bio-toggle {
+  transition: color .22s ease, border-color .22s ease, gap .28s ease;
+}
+.team .bio-toggle span {
+  display: inline-block;
+  transition: transform .32s cubic-bezier(.22, 1, .36, 1);
+}
+.team article:hover .bio-toggle span,
+.team article:focus-within .bio-toggle span,
+.team article.is-expanded .bio-toggle span {
+  transform: translate(2px, -2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .team .team-bio,
+  .team .bio-toggle,
+  .team .bio-toggle span {
+    transition: none;
+  }
 }
 .team .bio-toggle {
   align-self: flex-start;
