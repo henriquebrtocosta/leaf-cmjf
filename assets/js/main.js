@@ -21,6 +21,15 @@
     'A tecnologia': 'The technology',
     Materiais: 'Resources',
     'Quem faz': 'Our team',
+    'Professor coorientador': 'Co-advisor',
+    'Estudante pesquisador do Colégio Militar de Juiz de Fora, integra a equipe que desenvolve o LEAF. Sua atuação reúne a investigação do problema agrícola, o desenvolvimento da proposta e a comunicação dos resultados da pesquisa.':
+      'A student researcher at Colégio Militar de Juiz de Fora, he is part of the team developing LEAF. His work brings together investigation of the agricultural problem, development of the proposal and communication of the research findings.',
+    'Estudante pesquisador do Colégio Militar de Juiz de Fora, colabora no desenvolvimento do LEAF e na apresentação da proposta de cuidado agrícola. Junto à equipe, participa da investigação sobre a observação de plantas e possíveis pragas por imagem.':
+      'A student researcher at Colégio Militar de Juiz de Fora, he contributes to LEAF’s development and to presenting its crop-care proposal. With the team, he takes part in investigating how images can be used to observe plants and possible pests.',
+    'Professor orientador do projeto, contribui principalmente com robótica e tecnologia. Apoia a equipe na integração dos componentes técnicos e no desenvolvimento do protótipo de aplicação direcionada.':
+      'The project’s faculty advisor, he contributes primarily to robotics and technology. He supports the team in integrating technical components and developing the targeted-application prototype.',
+    'Professor coorientador do LEAF, contribui especialmente com a metodologia científica, a organização da pesquisa e a redação do artigo. Seu apoio ajuda a estruturar os registros, apresentar os métodos com clareza e comunicar os resultados do trabalho.':
+      'LEAF’s co-advisor, he contributes especially to scientific methodology, research organization and article writing. His guidance helps structure research records, present methods clearly and communicate the project’s findings.',
     'Assistente agrícola': 'Farming assistant',
     'Do Colégio Militar de Juiz de Fora para o campo':
       'From Colégio Militar de Juiz de Fora to the field',
