@@ -273,6 +273,9 @@
   }
 }
 @media (max-width: 620px) {
+  .team { grid-template-columns: 1fr; }
+  .team article { padding: 22px; }
+  #equipe .team .initials { position: static; margin-bottom: 16px; }
   .assistant-form .field-grid {
     grid-template-columns: 1fr;
   }
@@ -1494,11 +1497,62 @@ textarea:focus {
 .team {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 30px;
+  align-items: start;
+  gap: 22px;
 }
 .team article {
-  border-top: 1px solid #bfcdb2;
-  padding-top: 26px;
+  border: 1px solid #cbd5bf;
+  border-radius: 7px;
+  padding: 26px;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  box-shadow: 0 4px 18px #213c2c06;
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.team article:hover,
+.team article:focus-within,
+.team article.is-expanded {
+  border-color: #91a97a;
+  box-shadow: 0 12px 30px #213c2c12;
+}
+.team .team-bio {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.team article:hover .team-bio,
+.team article:focus-within .team-bio,
+.team article.is-expanded .team-bio {
+  display: block;
+  overflow: visible;
+}
+.team .bio-toggle {
+  align-self: flex-start;
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 17px;
+  padding: 8px 0 2px;
+  border: 0;
+  border-bottom: 1px solid #b7c7a6;
+  background: transparent;
+  color: var(--green);
+  font: 600 12px/1.5 var(--sans);
+  cursor: pointer;
+}
+.team .bio-toggle:hover {
+  color: var(--forest);
+  border-bottom-color: var(--forest);
+}
+.team .initials {
+  margin-bottom: 20px;
 }
 .initials {
   font: 31px var(--serif);
@@ -2228,8 +2282,8 @@ footer {
     font-size: 10px;
   }
   .team {
-    grid-template-columns: 1fr;
-    gap: 25px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
   }
   .team article {
     position: relative;
@@ -2890,8 +2944,12 @@ footer {
     font-size: 13px;
   }
   #equipe .team article {
-    padding: 24px 20px 24px 100px;
-    min-height: 120px;
+    padding: 24px 20px;
+    min-height: 0;
+  }
+  #equipe .team .initials {
+    position: static;
+    margin-bottom: 16px;
   }
   #equipe .initials {
     left: 20px;

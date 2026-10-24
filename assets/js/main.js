@@ -21,15 +21,17 @@
     'A tecnologia': 'The technology',
     Materiais: 'Resources',
     'Quem faz': 'Our team',
+    'Ler biografia': 'Read biography',
+    'Mostrar menos': 'Show less',
     'Professor orientador': 'Advisor',
-    'Estudante pesquisador do Colégio Militar de Juiz de Fora e coautor do LEAF, Henrique participa do desenvolvimento de uma solução experimental que reúne visão computacional, automação agrícola e pesquisa de formulações de origem natural. O projeto foi apresentado no VIII Desafio Global do Conhecimento, em Brasília, e conquistou o 3º lugar nacional. Também integra iniciativas de iniciação científica e reúne conquistas em olimpíadas acadêmicas, incluindo a OBMEP, a ONIA e a Olimpíada do Oceano; em 2026, foi selecionado para o Programa Ganhando o Mundo.':
-      'A student researcher at Colégio Militar de Juiz de Fora and co-creator of LEAF, Henrique helps develop an experimental solution combining computer vision, agricultural automation and research into naturally derived formulations. The project was presented at the 8th Global Knowledge Challenge in Brasília, where it earned 3rd place nationally. He also takes part in scientific initiation and has earned distinctions in academic olympiads, including OBMEP, ONIA and the Ocean Olympiad; in 2026, he was selected for the Ganhando o Mundo program.',
-    'Estudante pesquisador do Colégio Militar de Juiz de Fora, Luiz Guilherme Caovilla é coautor do LEAF, iniciativa criada para investigar alternativas de baixo custo à agricultura de precisão. Ao lado de Henrique, participou da concepção e apresentação de uma proposta que conecta uma câmera e a análise computacional de imagens a um mecanismo experimental de pulverização direcionada. O trabalho também reúne a pesquisa de um bioagrotóxico de origem natural e o planejamento de um aplicativo capaz de organizar informações do cultivo e orientar consultas sobre formulações e cuidados.':
-      'A student researcher at Colégio Militar de Juiz de Fora, Luiz Guilherme Caovilla is a co-creator of LEAF, a project exploring low-cost alternatives for precision agriculture. Alongside Henrique, he helped develop and present a proposal connecting a camera and computer-based image analysis with an experimental targeted-spraying mechanism. The project also includes research into a naturally derived biopesticide and the design of an app to organize crop information and provide formulation and safety guidance.',
-    'Professor do Colégio Militar de Juiz de Fora e orientador do LEAF, Guilherme Marins Maciel acompanha a construção da dimensão tecnológica do projeto, com ênfase em robótica e integração de hardware e software. Sua orientação apoia a equipe na transformação da proposta em um protótipo experimental, conectando o processamento de imagens aos componentes eletrônicos e ao mecanismo de aplicação direcionada. Também contribui para que o desenvolvimento técnico seja organizado e apresentado no contexto de feiras e atividades científicas.':
-      'A teacher at Colégio Militar de Juiz de Fora and an advisor to LEAF, Guilherme Marins Maciel guides the project’s technological development, with an emphasis on robotics and hardware-software integration. His guidance supports the team in turning the concept into an experimental prototype that connects image processing, electronic components and a targeted-application mechanism. He also helps the students organize and present their technical work in science-fair and research settings.',
-    'Phelippe Nathaniel Ribeiro Oliveira é professor de língua inglesa no Colégio Militar de Juiz de Fora, doutor em Estudos Linguísticos pela Universidade Federal de Minas Gerais e mestre em Linguística pela Universidade Federal de Juiz de Fora. Sua trajetória acadêmica inclui pesquisas e publicações em Linguística Aplicada, translinguagem e letramento crítico. No LEAF, atua como orientador, contribuindo para a organização da investigação, a redação científica e a comunicação dos resultados — etapas essenciais para transformar o desenvolvimento do projeto em pesquisa bem documentada.':
-      'Phelippe Nathaniel Ribeiro Oliveira teaches English at Colégio Militar de Juiz de Fora. He holds a PhD in Linguistic Studies from the Federal University of Minas Gerais and a master’s degree in Linguistics from the Federal University of Juiz de Fora. His academic work includes research and publications in Applied Linguistics, translanguaging and critical literacy. As an advisor to LEAF, he supports research organization, scientific writing and communication of the findings—key steps in turning project development into well-documented research.',
+    'Henrique Barreto Costa é estudante pesquisador do Colégio Militar de Juiz de Fora e coautor do LEAF. Na matéria da FEBRACE, ele e Luiz Guilherme Caovilla apresentam a ideia central do projeto: usar imagens para observar plantas e possíveis pragas e aproximar essa análise de uma proposta de cuidado agrícola. Henrique participa da investigação e da comunicação de uma solução que combina visão computacional, aplicação direcionada e informações de apoio ao cultivo.':
+      'Henrique Barreto Costa is a student researcher at Colégio Militar de Juiz de Fora and a co-author of LEAF. In the FEBRACE article, he and Luiz Guilherme Caovilla explain the project’s central idea: using images to observe plants and possible pests, connecting that analysis to a crop-care proposal. Henrique contributes to the research and communication of a solution combining computer vision, targeted application and crop-care information.',
+    'Luiz Guilherme Caovilla é estudante pesquisador do Colégio Militar de Juiz de Fora e coautor do LEAF. Na matéria da FEBRACE, explica com Henrique como a observação de plantas por imagem pode ajudar a reconhecer sinais de possíveis pragas. O projeto reúne essa frente de visão computacional à pesquisa de uma formulação agrícola de origem natural e à proposta de um aplicativo para consultar informações sobre o cultivo, as formulações e os cuidados de uso.':
+      'Luiz Guilherme Caovilla is a student researcher at Colégio Militar de Juiz de Fora and a co-author of LEAF. In the FEBRACE article, he explains with Henrique how image-based plant observation may help identify signs of possible pests. The project connects computer vision with research into a naturally derived agricultural formulation and the concept of an app for consulting crop information, formulations and use precautions.',
+    'Guilherme Marins Maciel é professor do Colégio Militar de Juiz de Fora e orientador do LEAF. Sua contribuição está ligada à parte tecnológica e à robótica: orienta o desenvolvimento do protótipo e a integração entre câmera, processamento computacional e mecanismo de aplicação direcionada. Esse acompanhamento ajuda a equipe a transformar a proposta de pesquisa em um sistema experimental e a documentar seu funcionamento para apresentações científicas.':
+      'Guilherme Marins Maciel is a teacher at Colégio Militar de Juiz de Fora and an advisor to LEAF. His contribution focuses on technology and robotics: he guides prototype development and the integration of the camera, computer processing and targeted-application mechanism. This support helps the team turn its research proposal into an experimental system and document its operation for scientific presentations.',
+    'Phelippe Nathaniel Ribeiro Oliveira é orientador do LEAF e contribui para a estruturação da pesquisa e a redação do artigo científico. Sua participação ajuda a organizar a apresentação do problema, explicar com clareza os métodos e resultados e comunicar o projeto a públicos diferentes. No site, aparece como orientador ao lado de Guilherme Marins Maciel, refletindo a colaboração entre a dimensão científica e a tecnológica do trabalho.':
+      'Phelippe Nathaniel Ribeiro Oliveira is an advisor to LEAF and contributes to research structure and scientific writing. His involvement helps organize the presentation of the problem, explain methods and findings clearly, and communicate the project to different audiences. He is listed as an advisor alongside Guilherme Marins Maciel, reflecting collaboration between the scientific and technological aspects of the work.',
     'Assistente agrícola': 'Farming assistant',
     'Do Colégio Militar de Juiz de Fora para o campo':
       'From Colégio Militar de Juiz de Fora to the field',
@@ -1283,6 +1285,7 @@
           element.setAttribute(name, LEAF.translate(source));
       });
     const english = LEAF.getLanguage() === 'en';
+    refreshBioButtons();
     document.documentElement.lang = english ? 'en' : 'pt-BR';
     $('#languageToggle').textContent = english ? 'Português' : 'English';
     $('#languageToggle').lang = english ? 'pt-BR' : 'en';
@@ -1299,6 +1302,24 @@
         );
       });
   }
+  document.querySelectorAll('.team-card .bio-toggle').forEach((button) => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.team-card');
+      const expanded = card.classList.toggle('is-expanded');
+      button.setAttribute('aria-expanded', String(expanded));
+      const label = expanded ? 'Mostrar menos' : 'Ler biografia';
+      button.firstChild.textContent = label + ' ';
+      const arrow = button.querySelector('span');
+      if (arrow) arrow.textContent = expanded ? '↙' : '↗';
+      button.dataset.expanded = expanded ? 'true' : 'false';
+    });
+  });
+  const refreshBioButtons = () => {
+    document.querySelectorAll('.team-card .bio-toggle').forEach((button) => {
+      const expanded = button.dataset.expanded === 'true';
+      button.firstChild.textContent = (expanded ? 'Mostrar menos' : 'Ler biografia') + ' ';
+    });
+  };
   $('#languageToggle').addEventListener('click', () => {
     LEAF.setLanguage(LEAF.getLanguage() === 'pt' ? 'en' : 'pt');
     form
