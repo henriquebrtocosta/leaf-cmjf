@@ -1519,20 +1519,17 @@ textarea:focus {
 }
 .team .team-bio {
   display: block;
-  max-height: 5.4em;
+  height: 9.72em;
   overflow: hidden;
   margin-top: 12px;
   font-size: 14px;
   line-height: 1.8;
   color: var(--muted);
-  opacity: .88;
-  transition: max-height .72s cubic-bezier(.22, 1, .36, 1), opacity .32s ease;
-  will-change: max-height;
+  opacity: .9;
+  transition: height .48s cubic-bezier(.22, 1, .36, 1), opacity .28s ease;
+  will-change: height;
 }
-.team article:hover .team-bio,
-.team article:focus-within .team-bio,
 .team article.is-expanded .team-bio {
-  max-height: 1200px;
   opacity: 1;
 }
 .team .bio-toggle {
@@ -1542,10 +1539,11 @@ textarea:focus {
   display: inline-block;
   transition: transform .32s cubic-bezier(.22, 1, .36, 1);
 }
-.team article:hover .bio-toggle span,
-.team article:focus-within .bio-toggle span,
 .team article.is-expanded .bio-toggle span {
-  transform: translate(2px, -2px);
+  transform: rotate(180deg);
+}
+.team .bio-toggle:focus-visible {
+  outline-offset: 5px;
 }
 @media (prefers-reduced-motion: reduce) {
   .team .team-bio,
