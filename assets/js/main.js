@@ -1303,23 +1303,35 @@
       });
   }
   document.querySelectorAll('.team-card .bio-toggle').forEach((button) => {
+    const card = button.closest('.team-card');
+    const bio = card.querySelector('.team-bio');
+    const arrow = button.querySelector('span');
+    const collapsedHeight = () => parseFloat(getComputedStyle(bio).fontSize) * 1.8 * 5.4;
+    bio.style.height = `${collapsedHeight()}px`;
+    bio.addEventListener('transitionend', (event) => {
+      if (event.propertyName !== 'height') return;
+      if (card.classList.contains('is-expanded')) bio.style.height = 'auto';
+    });
     button.addEventListener('click', () => {
-      const card = button.closest('.team-card');
       const expanded = card.classList.toggle('is-expanded');
       button.setAttribute('aria-expanded', String(expanded));
-      const label = expanded ? 'Mostrar menos' : 'Ler biografia';
-      button.firstChild.textContent = label + ' ';
-      const arrow = button.querySelector('span');
-      if (arrow) arrow.textContent = expanded ? '↙' : '↗';
-      button.dataset.expanded = expanded ? 'true' : 'false';
+      button.firstChild.textContent = (expanded ? 'Mostrar menos' : 'Ler biografia') + ' ';
+      if (arrow) arrow.textContent = expanded ? '↗' : '↗';
+      if (expanded) {
+        bio.style.height = `${bio.getBoundingClientRect().height}px`;
+        requestAnimationFrame(() => {
+          bio.style.height = `${bio.scrollHeight}px`;
+          bio.style.opacity = '1';
+        });
+      } else {
+        bio.style.height = `${bio.getBoundingClientRect().height}px`;
+        requestAnimationFrame(() => {
+          bio.style.height = `${collapsedHeight()}px`;
+          bio.style.opacity = '.9';
+        });
+      }
     });
   });
-  const refreshBioButtons = () => {
-    document.querySelectorAll('.team-card .bio-toggle').forEach((button) => {
-      const expanded = button.dataset.expanded === 'true';
-      button.firstChild.textContent = (expanded ? 'Mostrar menos' : 'Ler biografia') + ' ';
-    });
-  };
   $('#languageToggle').addEventListener('click', () => {
     LEAF.setLanguage(LEAF.getLanguage() === 'pt' ? 'en' : 'pt');
     form
