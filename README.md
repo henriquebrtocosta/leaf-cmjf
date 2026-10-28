@@ -33,6 +33,8 @@ Ao integrar software, eletrônica e pesquisa agrícola, o LEAF busca desenvolver
 > [!IMPORTANT]
 > O LEAF é um **projeto acadêmico experimental**, e não um produto agrícola comercialmente validado. A precisão da identificação visual, a confiabilidade dos componentes eletrônicos, a eficácia das formulações e os benefícios ambientais ainda precisam ser avaliados experimentalmente antes de qualquer aplicação prática.
 
+Para ter acesso aos nossos artigos e materiais científicos, envie um email para henriquebrtocosta@gmail.com ou lgcaovilla@gmail.com
+
 ## 🎯 Objetivos do Projeto
 
 O desenvolvimento do LEAF é orientado por cinco objetivos principais:

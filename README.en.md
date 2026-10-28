@@ -33,6 +33,8 @@ By integrating software, electronics, and agricultural research, LEAF aims to de
 > [!IMPORTANT]
 > LEAF is an **experimental academic project**, not a commercially validated agricultural product. Detection accuracy, hardware reliability, formulation effectiveness, and environmental benefits require further testing before practical deployment.
 
+For you to have access for our articles and scientific materials, email henriquebrtocosta@gmail.com or lgcaovilla@gmail.com
+
 ## 🎯 Project Objectives
 
 LEAF is guided by five main objectives:
